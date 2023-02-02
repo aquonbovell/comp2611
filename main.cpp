@@ -4,7 +4,7 @@
 int main(){
   Deque dq = Deque();
   dq.addToTail("Jesus");
-  dq.addToTail("Aquon");
+  dq.addToTail("Aquo");
   dq.addToHead("ear");
   dq.addToTail("early");
   std::cout<<dq.getFront()<<"\n";
