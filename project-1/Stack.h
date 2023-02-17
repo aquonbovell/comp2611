@@ -10,6 +10,7 @@ using std::string, std::to_string, std::ifstream, std::stringstream, std::getlin
 
 class Stack
 {
+  
 private:
   Node *top;
   void push(string, int, string, string, string, int);
