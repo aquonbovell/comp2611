@@ -8,6 +8,7 @@
 using std::string, std::to_string, std::ifstream, std::stringstream, std::getline;
 
 class Queue
+
 {
 private:
   Node *head;
