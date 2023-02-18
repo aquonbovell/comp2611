@@ -427,7 +427,7 @@ void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
 
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
-    // filenameTextBox->AppendText(CurrentDocPath);
+    filenameTextBox->AppendText(CurrentDocPath);
 
     q->createQueue(string(CurrentDocPath)); // Add the data to the Queue
 
@@ -498,7 +498,7 @@ void ProjectFrame::OnCreateDeque(wxCommandEvent &event)
 
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
-    // filenameTextBox->AppendText(CurrentDocPath);
+    filenameTextBox->AppendText(CurrentDocPath);
 
     d->createDeque(string(CurrentDocPath)); // Add the data to the Queue
 
@@ -574,7 +574,7 @@ void ProjectFrame::OnCreatePriorityQueue(wxCommandEvent &event)
 
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
-    // filenameTextBox->AppendText(CurrentDocPath);
+    filenameTextBox->AppendText(CurrentDocPath);
 
     pq->createPriorityQueue(string(CurrentDocPath)); // Add the data to the PriorityQueue
 
@@ -645,7 +645,7 @@ void ProjectFrame::OnCreateStack(wxCommandEvent &event)
 
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
-    // filenameTextBox->AppendText(CurrentDocPath);
+    filenameTextBox->AppendText(CurrentDocPath);
 
     s->createStack(string(CurrentDocPath)); // Add the data to the Stack
 
