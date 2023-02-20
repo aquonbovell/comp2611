@@ -2,7 +2,7 @@
 //  Skeleton-01.cpp
 //  COMP2611 - Project #1
 //
-//  Created by Dr. John Charlery on 02/15/2023.
+//  Created by Aquon Bovell on 02/15/2023.
 //  Copyright (c) 2023 University of the West Indies. All rights reserved.
 //
 

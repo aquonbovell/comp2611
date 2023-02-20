@@ -1,27 +1,23 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 #include "Node.h"
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 using std::string, std::to_string, std::ifstream, std::stringstream, std::getline;
 
 class Queue
-
 {
 private:
   Node *head;
   void enqueue(string, int, string, string, string, int);
 
 public:
-  // Constructor functions
+  // Constructor function
   Queue() { head = NULL; }
-
   // Mutator functions
   void createQueue(string);
   string dequeue();
-
   // Accessor function
   string displayAll();
   string showHead();
@@ -30,25 +26,31 @@ public:
 
 void Queue::enqueue(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
 {
-  // Create the new node with the date from the parameter list
+  // Create the new node with the data from the parameter list
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
-
+  // Case 1: If the queue is empty, add the node to the head of the
+  // queue
   if (head == NULL)
-    head = freshNode;
-  else
   {
-    Node *currentNode = head;
-    for (; currentNode->getNext() != NULL; currentNode = currentNode->getNext())
-      ;
-    currentNode->setNext(freshNode);
+    head = freshNode;
     return;
   }
-}
+  // Case 2: If the queue is not empty, add the fresh Node to the
+  // end of the queue
+  Node *currentNode = head;
+  for (; currentNode->getNext() != NULL; currentNode = currentNode->getNext())
+    ;
+  currentNode->setNext(freshNode);
+  return;
+};
 
 string Queue::dequeue()
 {
+  // Case 1: If the queue is empty
   if (head == NULL)
     return "The Queue is empty!";
+  // Case 2: If the queue has only on Node remaining, remove
+  // the head Node and set the head attribute to NULL
   if (head->getNext() == NULL)
   {
     Node *ptrHead = head;
@@ -57,17 +59,22 @@ string Queue::dequeue()
     delete ptrHead;
     return str;
   }
+  // Case 3: If the queue has more than one Node remaining,
+  // remove the head Node and move the next Node to the head
   Node *ptrHead = head;
   head = head->getNext();
   string str = ptrHead->getData();
   delete ptrHead;
   return str;
-}
+};
 
 string Queue::displayAll()
 {
+  // Case 1: If the queue is empty
   if (head == NULL)
     return "The Queue is empty!";
+  // Case 2: If the queue is not empty, append all the data from
+  // each Node in the queue to a string
   string str = "";
   for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
   {
@@ -75,51 +82,53 @@ string Queue::displayAll()
     str.append("\n");
   }
   return str;
-}
+};
 
 string Queue::showHead()
 {
+  // Case 1: If the queue is empty
   if (head == NULL)
-    return "The Queue is empty!";
+    return ("The Queue is empty!");
+  // Case 2: If the queue is not empty, return
+  // the data at the head of the queue
   else
-    return head->getData();
-}
+    return (head->getData());
+};
 
 string Queue::showTail()
 {
-  if (head == NULL) // The containeer is empty
+  // Case 1: If the queue is empty
+  if (head == NULL)
     return "The Priority Queue is empty!";
-  // else
+  // Case 2: If the queue is not empty,
+  // iterate through the queue until we reach the end
+  // and return the data at the end of the queue
   Node *ptr = head;
-
-  // Walk down the list
-  while (ptr->getNext() != NULL)
-  {
-    ptr = ptr->getNext();
-  }
-
+  for (; ptr->getNext() != NULL; ptr = ptr->getNext())
+    ;
   return (ptr->getData());
-}
+};
 
 void Queue::createQueue(string filePath)
 {
+  ifstream file(filePath);
   string str;
-  char ch;
   string Month;
-  int Year;
   string Artist;
   string SongTitle;
   string RecordLabel;
+  char ch;
+  int Year;
   int WeeksAtNumberOne;
-
-  ifstream file(filePath);
+  // if the file is open by another resource or the file is not found
   if (!file)
   {
     exit(EXIT_FAILURE);
     return;
   }
+  // reads the headings of the file
   getline(file, str);
-
+  // iterate through each line and add the data to the queue
   while (!file.eof() && getline(file, str))
   {
     stringstream line(str);
@@ -133,6 +142,5 @@ void Queue::createQueue(string filePath)
     enqueue(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
   return;
-}
-
+};
 #endif
