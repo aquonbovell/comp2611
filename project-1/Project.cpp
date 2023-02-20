@@ -215,7 +215,7 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
     : wxFrame((wxFrame *)NULL, -1, title, pos, size)
 {
   // Set the frame icon - optional
-  SetIcon(wxIcon(wxT("Icon.xpm")));
+  // SetIcon(wxIcon(wxT("Icon.xpm")));
 
   // Create the main-menu items
   wxMenu *menuFile = new wxMenu;
@@ -385,7 +385,7 @@ void ProjectFrame::OnSaveAs(wxCommandEvent &event)
     MainEditBox->SaveFile(CurrentDocPath); // Save the file to the selected path
 
     // Set the Title to reflect the file open
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 123456789")));
+    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 }
 
