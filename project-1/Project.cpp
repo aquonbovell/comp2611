@@ -282,10 +282,10 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   SetStatusText(wxT("Ready..."));
 
   // Put something in the Second section of the status bar
-  SetStatusText(wxT("    Wiley Coyote"), 1);
+  SetStatusText(wxT("    Aquon Bovell"), 1);
 
   // Put something in the Third section of the status bar
-  SetStatusText(wxT("    123456789"), 2);
+  SetStatusText(wxT("    417002714"), 2);
 
   // Set up the panel for data display
   //=========================================================================================
@@ -359,7 +359,7 @@ void ProjectFrame::OnOpenFile(wxCommandEvent &event)
     MainEditBox->LoadFile(CurrentDocPath); // Opens that file in the MainEditBox
 
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 123456789")));
+    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 }
 
@@ -442,8 +442,8 @@ void ProjectFrame::OnShowHeadQueue(wxCommandEvent &event)
 {
   string value = q->showHead();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
-
   // Display the string in the MainEditBox
   wxString wxValue(value.c_str(), wxConvUTF8);
 
@@ -454,6 +454,7 @@ void ProjectFrame::OnShowTailQueue(wxCommandEvent &event)
 {
   string value = q->showTail();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -466,6 +467,7 @@ void ProjectFrame::OnDisplayAllQueue(wxCommandEvent &event)
 {
   string records = q->displayAll();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -476,6 +478,8 @@ void ProjectFrame::OnDisplayAllQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueQueue(wxCommandEvent &)
 {
+  filenameTextBox->Clear();
+  MainEditBox->Clear();
   q->dequeue();
 }
 
@@ -513,6 +517,7 @@ void ProjectFrame::OnShowHeadDeque(wxCommandEvent &event)
 {
   string value = d->showHead();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -525,6 +530,7 @@ void ProjectFrame::OnShowTailDeque(wxCommandEvent &event)
 {
   string value = d->showTail();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -537,6 +543,7 @@ void ProjectFrame::OnDisplayAllDeque(wxCommandEvent &event)
 {
   string records = d->displayAll();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -547,11 +554,15 @@ void ProjectFrame::OnDisplayAllDeque(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueHeadDeque(wxCommandEvent &)
 {
+  filenameTextBox->Clear();
+  MainEditBox->Clear();
   d->dequeueHead();
 }
 
 void ProjectFrame::OnDequeueTailDeque(wxCommandEvent &)
 {
+  filenameTextBox->Clear();
+  MainEditBox->Clear();
   d->dequeueTail();
 }
 
@@ -589,6 +600,7 @@ void ProjectFrame::OnShowHeadPriorityQueue(wxCommandEvent &event)
 {
   string value = pq->showHead();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -601,8 +613,8 @@ void ProjectFrame::OnShowTailPriorityQueue(wxCommandEvent &event)
 {
   string value = pq->showTail();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
-
   // Display the string in the MainEditBox
   wxString wxValue(value.c_str(), wxConvUTF8);
 
@@ -613,6 +625,7 @@ void ProjectFrame::OnDisplayAllPriorityQueue(wxCommandEvent &event)
 {
   string records = pq->displayAll();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -623,6 +636,8 @@ void ProjectFrame::OnDisplayAllPriorityQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeuePriorityQueue(wxCommandEvent &)
 {
+  filenameTextBox->Clear();
+  MainEditBox->Clear();
   pq->dequeue();
 }
 
@@ -660,6 +675,7 @@ void ProjectFrame::OnShowHeadStack(wxCommandEvent &event)
 {
   string value = s->showHead();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -672,6 +688,7 @@ void ProjectFrame::OnShowTailStack(wxCommandEvent &event)
 {
   string value = s->showTail();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -684,6 +701,7 @@ void ProjectFrame::OnDisplayAllStack(wxCommandEvent &event)
 {
   string records = s->displayAll();
 
+  filenameTextBox->Clear();
   MainEditBox->Clear();
 
   // Display the string in the MainEditBox
@@ -694,5 +712,7 @@ void ProjectFrame::OnDisplayAllStack(wxCommandEvent &event)
 
 void ProjectFrame::OnPopStack(wxCommandEvent &)
 {
+  filenameTextBox->Clear();
+  MainEditBox->Clear();
   s->pop();
 }

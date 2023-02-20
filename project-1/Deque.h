@@ -186,8 +186,6 @@ void Deque::createDeque(string filePath)
   {
     stringstream line(str);
     getline(line, Month, '*');
-    // removes the newline escape character
-    // str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
     line >> Year;
     line >> ch;
     getline(line, Artist, '*');
