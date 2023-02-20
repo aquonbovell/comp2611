@@ -74,7 +74,7 @@ void Deque::enqueueTail(string Month, int Year, string Artist, string SongTitle,
 string Deque::dequeueHead()
 {
   // Case 1: If the deque is empty
-  if (head == NULL || head == NULL)
+  if (head == NULL || tail == NULL)
     return "The Deque is empty!";
   // Case 2: If the deque has only one Node remaining, remove
   // the Node and set both the head and tail attribute to NULL
@@ -103,15 +103,15 @@ string Deque::dequeueTail()
     return "The Deque is empty";
   // Case 2: If the deque has only one Node remaining, remove
   // the Node and set both the head and tail attribute to NULL
-  // if (tail == head)
-  // {
-  //   Node *ptrTail = tail;
-  //   head = NULL;
-  //   tail = NULL;
-  //   string str = ptrTail->getData();
-  //   delete ptrTail;
-  //   return str;
-  // }
+  if (tail == head)
+  {
+    Node *ptrTail = tail;
+    head = NULL;
+    tail = NULL;
+    string str = ptrTail->getData();
+    delete ptrTail;
+    return str;
+  }
   // Case 3: If the deque has more than one Node remaining,
   // remove the tail Node and move the previous Node to the tail
   Node *currentNode = head;
@@ -149,7 +149,7 @@ string Deque::showHead()
   else
     // Case 2: If the deque is not empty, return the data
     // at the head
-    return head->getData();
+    return (head->getData());
 };
 
 string Deque::showTail()
