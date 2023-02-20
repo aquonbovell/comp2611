@@ -49,17 +49,7 @@ string Queue::dequeue()
   // Case 1: If the queue is empty
   if (head == NULL)
     return "The Queue is empty!";
-  // Case 2: If the queue has only on Node remaining, remove
-  // the head Node and set the head attribute to NULL
-  if (head->getNext() == NULL)
-  {
-    Node *ptrHead = head;
-    head = NULL;
-    string str = ptrHead->getData();
-    delete ptrHead;
-    return str;
-  }
-  // Case 3: If the queue has more than one Node remaining,
+  // Case 2: If the queue has more than one Node remaining,
   // remove the head Node and move the next Node to the head
   Node *ptrHead = head;
   head = head->getNext();

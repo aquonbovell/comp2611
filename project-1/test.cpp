@@ -1,9 +1,21 @@
-#include "Deque.h"
+#include "Queue.h"
 // #include "Stack.h"
 #include <iostream>
 
 int main(){
-  Deque *d = new Deque();
-  d->createDeque("catalog.txt");
+  Queue *d = new Queue();
+  d->createQueue("../catalog.txt");
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
+  d->dequeue();
   std::cout<<d->displayAll();
 }

@@ -50,20 +50,8 @@ string Stack::pop()
 {
   // Case 1: If the stack is empty
   if (top == NULL)
-  {
     return "The Stack is empty!";
-  }
-  // Case 2: If the stack has only on Node remaining, remove
-  // the top Node and set the top attribute to NULL
-  if (top->getNext() == NULL)
-  {
-    Node *ptrTop = top;
-    top = NULL;
-    string str = ptrTop->getData();
-    delete ptrTop;
-    return str;
-  }
-  // Case 3: If the stack has more than one Node remaining,
+  // Case 2: If the stack has more than one Node remaining,
   // remove the top Node and move the next Node to the top
   Node *previousTop = top;
   string str = "";

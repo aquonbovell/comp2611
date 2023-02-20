@@ -27,8 +27,6 @@
 
 using std::fstream;
 
-// using namespace std;
-
 // Global pointers for the ADT containers
 Queue *q = new Queue();
 Deque *d = new Deque();
