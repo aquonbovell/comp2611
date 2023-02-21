@@ -9,14 +9,14 @@ using std::string, std::to_string, std::ifstream, std::stringstream, std::getlin
 class Stack
 {
 private:
-  Node *top;
+  Node *head;
   void push(string, int, string, string, string, int);
 
 public:
   // Constructor function
   Stack()
   {
-    top = NULL;
+    head = NULL;
   }
   // Mutator functions
   void createStack(string);
@@ -31,72 +31,72 @@ void Stack::push(string Month, int Year, string Artist, string SongTitle, string
 {
   // Create the new node with the data from the parameter list
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
-  // Case 1: If the stack is empty, add the node to the top of the
+  // Case 1: If the stack is empty, add the node to the head of the
   // stack
-  if (top == NULL)
+  if (head == NULL)
   {
-    top = freshNode;
+    head = freshNode;
     return;
   }
   // Case 2: If the stack is not empty, add the fresh Node to the
-  // top of the stack
-  Node *previousTop = top;
-  top = freshNode;
-  top->setNext(previousTop);
+  // head of the stack
+  Node *previousHead = head;
+  head = freshNode;
+  head->setNext(previousHead);
   return;
-}
+};
 
 string Stack::pop()
 {
   // Case 1: If the stack is empty
-  if (top == NULL)
+  if (head == NULL)
     return "The Stack is empty!";
   // Case 2: If the stack has more than one Node remaining,
-  // remove the top Node and move the next Node to the top
-  Node *previousTop = top;
+  // remove the head Node and move the next Node to the head
+  Node *previousHead = head;
   string str = "";
-  top = top->getNext();
-  str = previousTop->getData();
-  delete previousTop;
-  return str;
+  head = head->getNext();
+  str = previousHead->getData();
+  delete previousHead;
+  return (str);
 };
 
 string Stack::displayAll()
 {
   // Case 1: If the stack is empty
-  if (top == NULL)
+  if (head == NULL)
     return "The Stack is empty!";
   // Case 2: If the stack is not empty, append all the data from
   // each Node in the stack to a string
   string str = "";
-  for (Node *ptr = top; ptr != NULL; ptr = ptr->getNext())
+  for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
   {
     str.append(ptr->getData());
     str.append("\n");
   }
-  return str;
+  return (str);
 };
 
 string Stack::showHead()
 {
   // Case 1: If the stack is empty
-  if (top == NULL)
+  if (head == NULL)
     return ("The Stack is empty!");
   // Case 2: If the stack is not empty, return
-  // the data at the top of the stack
+  // the data at the head of the stack
   else
-    return (top->getData());
+    return (head->getData());
 };
 
 string Stack::showTail()
 {
   // Case 1: If the stack is empty
-  if (top == NULL)
+  if (head == NULL)
     return "The Stack is empty!";
   // Case 2: If the stack is not empty,
   // iterate through the stack until we reach the end
   // and return the data at the end of the stack
-  Node *ptr = top;
+  Node *ptr = head;
   for (; ptr->getNext() != NULL; ptr = ptr->getNext())
     ;
   return (ptr->getData());

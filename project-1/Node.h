@@ -12,12 +12,10 @@ private:
   string artist, songTitle, recordLabel;
   int weeksAtNumberOne;
   Node *next;
-
 public:
   // Constructors
   Node();
   Node(string, int, string, string, string, int);
-
   // mutator functions
   void setMonth(string value)
   {
@@ -43,7 +41,6 @@ public:
   {
     next = ptr;
   }
-
   // accessor functions
   string getMonth()
   {
@@ -81,7 +78,7 @@ Node::Node()
   recordLabel = "";
   weeksAtNumberOne = 0;
   next = NULL;
-}
+};
 
 Node::Node(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
 {
@@ -92,7 +89,7 @@ Node::Node(string Month, int Year, string Artist, string SongTitle, string Recor
   recordLabel = RecordLabel;
   weeksAtNumberOne = WeeksAtNumberOne;
   next = NULL;
-}
+};
 
 string Node::getData()
 {
@@ -103,6 +100,6 @@ string Node::getData()
   str.append(songTitle + ", ");
   str.append(recordLabel + " ");
   str.append(to_string(weeksAtNumberOne));
-  return str;
-}
+  return (str);
+};
 #endif

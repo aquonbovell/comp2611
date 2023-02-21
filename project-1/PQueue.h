@@ -52,13 +52,13 @@ void PriorityQueue::insert(string Month, int Year, string Artist, string SongTit
     previous = current;
     current = current->getNext();
   }
-  // If the fresh Node is to stored at the end of the list
+  // If the fresh Node is to be stored at the end of the list
   if (current == NULL)
   {
     previous->setNext(freshNode);
     return;
   }
-  // If the fresh Node is to stored somewhere within the list
+  // If the fresh Node is to be stored somewhere within the list
   freshNode->setNext(current);
   previous->setNext(freshNode);
   return;
@@ -75,7 +75,7 @@ string PriorityQueue::dequeue()
   string str = head->getData();
   head = head->getNext();
   delete ptr;
-  return str;
+  return (str);
 };
 
 string PriorityQueue::displayAll()
@@ -91,7 +91,7 @@ string PriorityQueue::displayAll()
     str.append(ptr->getData());
     str.append("\n");
   }
-  return str;
+  return (str);
 };
 
 string PriorityQueue::showHead()

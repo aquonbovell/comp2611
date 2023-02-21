@@ -37,7 +37,7 @@ void Deque::enqueueHead(string Month, int Year, string Artist, string SongTitle,
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   // Case 1: If the deque is empty, add the Node to the head
   // and tail of the deque
-  if (head == NULL && tail == NULL)
+  if (head == NULL || tail == NULL)
   {
     head = freshNode;
     tail = freshNode;
@@ -57,7 +57,7 @@ void Deque::enqueueTail(string Month, int Year, string Artist, string SongTitle,
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   // Case 1: If the deque is empty, add the node to the head of the
   // deque
-  if (head == NULL && tail == NULL)
+  if (head == NULL || tail == NULL)
   {
     head = freshNode;
     tail = freshNode;
@@ -93,7 +93,7 @@ string Deque::dequeueHead()
   head = head->getNext();
   string str = ptrHead->getData();
   delete ptrHead;
-  return str;
+  return (str);
 };
 
 string Deque::dequeueTail()
@@ -110,7 +110,7 @@ string Deque::dequeueTail()
     tail = NULL;
     string str = ptrTail->getData();
     delete ptrTail;
-    return str;
+    return (str);
   }
   // Case 3: If the deque has more than one Node remaining,
   // remove the tail Node and move the previous Node to the tail
@@ -122,7 +122,7 @@ string Deque::dequeueTail()
   tail->setNext(NULL);
   string str = ptrTail->getData();
   delete ptrTail;
-  return str;
+  return (str);
 };
 
 string Deque::displayAll()
@@ -138,7 +138,7 @@ string Deque::displayAll()
     str.append(ptr->getData());
     str.append("\n");
   }
-  return str;
+  return (str);
 };
 
 string Deque::showHead()

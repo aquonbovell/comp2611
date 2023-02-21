@@ -55,7 +55,7 @@ string Queue::dequeue()
   head = head->getNext();
   string str = ptrHead->getData();
   delete ptrHead;
-  return str;
+  return (str);
 };
 
 string Queue::displayAll()
@@ -71,7 +71,7 @@ string Queue::displayAll()
     str.append(ptr->getData());
     str.append("\n");
   }
-  return str;
+  return (str);
 };
 
 string Queue::showHead()
