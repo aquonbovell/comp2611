@@ -59,32 +59,33 @@ public:
   void OnSave(wxCommandEvent &event);
   void OnSaveAs(wxCommandEvent &event);
   void OnExit(wxCommandEvent &event); // handle for Quit function
-  // Functions for Queue Menu Item
+  // Functions for Queue Menu Items
   void OnCreateQueue(wxCommandEvent &event);
   void OnDisplayAllQueue(wxCommandEvent &event);
   void OnShowHeadQueue(wxCommandEvent &event);
   void OnShowTailQueue(wxCommandEvent &event);
   void OnDequeueQueue(wxCommandEvent &event);
-
-  // Functions for Deque Menu Item
+  // Functions for Deque Menu Items
   void OnCreateDeque(wxCommandEvent &event);
   void OnDisplayAllDeque(wxCommandEvent &event);
   void OnShowHeadDeque(wxCommandEvent &event);
   void OnShowTailDeque(wxCommandEvent &event);
   void OnDequeueHeadDeque(wxCommandEvent &event);
   void OnDequeueTailDeque(wxCommandEvent &event);
-  // Functions for Priority Queue Menu Item
+  // Functions for Priority Queue Menu Items
   void OnCreatePriorityQueue(wxCommandEvent &event);
   void OnDisplayAllPriorityQueue(wxCommandEvent &event);
   void OnShowHeadPriorityQueue(wxCommandEvent &event);
   void OnShowTailPriorityQueue(wxCommandEvent &event);
   void OnDequeuePriorityQueue(wxCommandEvent &event);
-  // Functions for Stack Menu Item
+  // Functions for Stack Menu Items
   void OnCreateStack(wxCommandEvent &event);
   void OnDisplayAllStack(wxCommandEvent &event);
   void OnShowHeadStack(wxCommandEvent &event);
   void OnShowTailStack(wxCommandEvent &event);
   void OnPopStack(wxCommandEvent &event);
+  // Functions for Help Menu Item
+  void OnAbout(wxCommandEvent &event);
   // Public attributes
   wxTextCtrl *MainEditBox;
   wxTextCtrl *filenameTextBox;
@@ -167,6 +168,9 @@ EVT_MENU(ID_ShowHeadStack, ProjectFrame::OnShowHeadStack)
 EVT_MENU(ID_ShowTailStack, ProjectFrame::OnShowTailStack)
 EVT_MENU(ID_PopStack, ProjectFrame::OnPopStack)
 
+// Events for the "Help" menu items
+EVT_MENU(wxID_ABOUT, ProjectFrame::OnAbout)
+
 END_EVENT_TABLE()
 
 /************************************************************************************
@@ -177,7 +181,7 @@ END_EVENT_TABLE()
 bool ProjectApp::OnInit()
 {
   // Create the main application window
-  ProjectFrame *frame = new ProjectFrame(wxT("COMP2611 - Data Structures"),
+  ProjectFrame *frame = new ProjectFrame(wxT("COMP2611 - Data Structures Project #1"),
                                          wxPoint(50, 50),
                                          wxSize(840, 600));
   // Display the window
@@ -221,28 +225,30 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   // Append the sub-menu items to the Queue Main Menu item
   menuQueue->Append(ID_CreateQueue, wxT("Create &Queue"), wxT("Create a Queue"));
   menuQueue->Append(ID_DisplayAllQueue, wxT("&Display All"), wxT("Display contents of the Queue"));
-  menuQueue->Append(ID_ShowHeadQueue, wxT("Show &Head"), wxT("Show the first element"));
-  menuQueue->Append(ID_ShowTailQueue, wxT("Show &Tail"), wxT("Show the last element"));
-  menuQueue->Append(ID_DequeueQueue, wxT("&Dequeue"), wxT("Remove the first item"));
+  menuQueue->Append(ID_ShowHeadQueue, wxT("Show &Head"), wxT("Show the first item of the Queue"));
+  menuQueue->Append(ID_ShowTailQueue, wxT("Show &Tail"), wxT("Show the last item of the Queue"));
+  menuQueue->Append(ID_DequeueQueue, wxT("&Dequeue"), wxT("Dequeue the first item from the Queue"));
   // Append the sub-menu items to the Deque Main Menu item
   menuDeque->Append(ID_CreateDeque, wxT("Create &Deque"), wxT("Create a Deque"));
   menuDeque->Append(ID_DisplayAllDeque, wxT("&Display All"), wxT("Display contents of the Deque"));
-  menuDeque->Append(ID_ShowHeadDeque, wxT("Show &Head"), wxT("Show the first element"));
-  menuDeque->Append(ID_ShowTailDeque, wxT("Show &Tail"), wxT("Show the last element"));
-  menuDeque->Append(ID_DequeueHeadDeque, wxT("&Dequeue Head"), wxT("Remove the first item"));
-  menuDeque->Append(ID_DequeueTailDeque, wxT("&Dequeue Tail"), wxT("Remove the last item"));
+  menuDeque->Append(ID_ShowHeadDeque, wxT("Show &Head"), wxT("Show the first item of the Deque"));
+  menuDeque->Append(ID_ShowTailDeque, wxT("Show &Tail"), wxT("Show the last item of the Deque"));
+  menuDeque->Append(ID_DequeueHeadDeque, wxT("&Dequeue Head"), wxT("Dequeue the first item from the Deque"));
+  menuDeque->Append(ID_DequeueTailDeque, wxT("&Dequeue Tail"), wxT("Dequeue the last item from the Deque"));
   // Append the sub-menu items to the Queue Main Menu item
-  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create &PQueue"), wxT("Create a PQueue"));
-  menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("&Display All"), wxT("Display contents of the Queue"));
-  menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show &Head"), wxT("Show the first element"));
-  menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show &Tail"), wxT("Show the last element"));
-  menuPQueue->Append(ID_DequeuePriorityQueue, wxT("&Dequeue"), wxT("Remove the first item"));
+  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create &PQueue"), wxT("Create a Priority Queue"));
+  menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("&Display All"), wxT("Display contents of the Priority Queue"));
+  menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show &Head"), wxT("Show the first item of the Priority Queue"));
+  menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show &Tail"), wxT("Show the last item of the Priority Queue"));
+  menuPQueue->Append(ID_DequeuePriorityQueue, wxT("&Dequeue"), wxT("Dequeue the first item from the Priority Queue"));
   // Append the sub-menu items to the Queue Main Menu item
   menuStack->Append(ID_CreateStack, wxT("Create &Stack"), wxT("Create a Stack"));
-  menuStack->Append(ID_DisplayAllStack, wxT("&Display All"), wxT("Display contents of the Queue"));
-  menuStack->Append(ID_ShowHeadStack, wxT("Show &Head"), wxT("Show the first element"));
-  menuStack->Append(ID_ShowTailStack, wxT("Show &Tail"), wxT("Show the last element"));
-  menuStack->Append(ID_PopStack, wxT("&Pop"), wxT("Remove the first item"));
+  menuStack->Append(ID_DisplayAllStack, wxT("&Display All"), wxT("Display contents of the Stack"));
+  menuStack->Append(ID_ShowHeadStack, wxT("Show &Head"), wxT("Show the first item of the Stack"));
+  menuStack->Append(ID_ShowTailStack, wxT("Show &Tail"), wxT("Show the last item of the Stack"));
+  menuStack->Append(ID_PopStack, wxT("&Pop"), wxT("Pop the first item from the Stack"));
+
+  menuHelp->Append(wxID_ABOUT, wxT("&About"), wxT("Shows the details of the program"));
   // ... and now... attach this main menu bar to the frame
   SetMenuBar(menuBar);
   // Create a status bar just for fun
@@ -309,7 +315,7 @@ void ProjectFrame::OnOpenFile(wxCommandEvent &event)
     filenameTextBox->AppendText(CurrentDocPath);
     MainEditBox->LoadFile(CurrentDocPath); // Opens that file in the MainEditBox
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -332,7 +338,7 @@ void ProjectFrame::OnSaveAs(wxCommandEvent &event)
     // set the path of our current document to the file the user chose to save under
     MainEditBox->SaveFile(CurrentDocPath); // Save the file to the selected path
     // Set the Title to reflect the file open
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -343,6 +349,7 @@ void ProjectFrame::OnDisplay(wxCommandEvent &event)
                                               wxEmptyString, wxEmptyString,
                                               (wxT("Text files (*.txt)|*.txt|Data Files (*.dat)|*.dat|All files (*.*)|*.*")),
                                               wxFD_OPEN, wxDefaultPosition);
+  CurrentDocPath = filenameTextBox->GetValue();
   MainEditBox->Clear();
   MainEditBox->LoadFile(CurrentDocPath);
 };
@@ -367,13 +374,16 @@ void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
+    q->createQueue(string(CurrentDocPath)); // Add the data to the Queue
+    string value = q->displayAll();
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
+    MainEditBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
-    q->createQueue(string(CurrentDocPath)); // Add the data to the Queue
-    MainEditBox->LoadFile(CurrentDocPath);  // Opens that file in the MainEditBox
+    wxString wxValue(value.c_str(), wxConvUTF8);
+    MainEditBox->AppendText(wxValue); // Loads the contents of the Queue into the MainEditBox
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -431,13 +441,17 @@ void ProjectFrame::OnCreateDeque(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
+    d->createDeque(string(CurrentDocPath)); // Add the data to the Queue
+    string value = d->displayAll();
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
+    MainEditBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
-    d->createDeque(string(CurrentDocPath)); // Add the data to the Queue
-    MainEditBox->LoadFile(CurrentDocPath);  // Opens that file in the MainEditBox
+    // Display the string in the MainEditBox
+    wxString wxValue(value.c_str(), wxConvUTF8);
+    MainEditBox->AppendText(wxValue);
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -505,13 +519,17 @@ void ProjectFrame::OnCreatePriorityQueue(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
+    pq->createPriorityQueue(string(CurrentDocPath)); // Add the data to the PriorityQueue
+    string value = pq->displayAll();
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
+    MainEditBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
-    pq->createPriorityQueue(string(CurrentDocPath)); // Add the data to the PriorityQueue
-    MainEditBox->LoadFile(CurrentDocPath);           // Opens that file in the MainEditBox
+    // Display the string in the MainEditBox
+    wxString wxValue(value.c_str(), wxConvUTF8);
+    MainEditBox->AppendText(wxValue);
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -569,13 +587,17 @@ void ProjectFrame::OnCreateStack(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
+    s->createStack(string(CurrentDocPath)); // Add the data to the Stack
+    string value = s->displayAll();
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
+    MainEditBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
-    s->createStack(string(CurrentDocPath)); // Add the data to the Stack
-    MainEditBox->LoadFile(CurrentDocPath);  // Opens that file in the MainEditBox
+    // Display the string in the MainEditBox
+    wxString wxValue(value.c_str(), wxConvUTF8);
+    MainEditBox->AppendText(wxValue);
     // Set the Title
-    SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
+    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -618,3 +640,10 @@ void ProjectFrame::OnPopStack(wxCommandEvent &)
   wxString wxRecords(records.c_str(), wxConvUTF8);
   MainEditBox->AppendText(wxRecords);
 };
+
+void ProjectFrame::OnAbout(wxCommandEvent &)
+{
+  string text = "Name: Aquon Bovell\nMajor: Computer Science and Mathematics\nLevel: II\nSkills: Java, Python, C++, HTML, CSS, JavaScript\nExperience: Completed several programming projects, including a website for a local business and a mobile app for a hypothetical non-profit organization\nRole in Project: Lead Programmer\nAvailability: Available for group meetings after 12pm on Thursdays and weekends\nDescription: This program is designed to help the user to understand and appreciate the various types of Linear Abstract Data Types (ADTs). It allows the user to load data from a file into any Linear ADT, display the contents of any Linear ADT and remove records from the Linear ABTs. The program also provides support for any file format for compatability across the board.\nTechnologies Used: C++ Language, wxWidgets\nFeatures:\n\tAdd and/or remove data to/from the Linear ADTs\n\tView data from each Linear ADTs\n\tSave and/or load data for future use\nUser Interface: The program uses a graphical user interface created using wxWidgets. It features a menu bar with options to add, remove, and view from the individual Linear ADTs as well as save/load data to/from files.\nArchitecture: OpenSUSE 15.4 is based on the latest Linux kernel, version 5.3. It uses the Xfce 4.14 desktop environment by default, with other options available. The package management system is based on the RPM format and uses the zypper utility. OpenSUSE 15.4 also features support for containerization and virtualization technologies such as Docker and KVM.";
+  wxString wxText(text.c_str(), wxConvUTF8);
+  wxMessageBox(wxText, wxT("About"), wxOK | wxICON_INFORMATION, this);
+}
