@@ -16,9 +16,12 @@ public:
   // Constructor function
   PriorityQueue() { head = NULL; }
   // Mutator functions
+  void loadFromFile(string);
   void createPriorityQueue(string);
   string dequeue();
+  void purge();
   // Accessor function
+  bool isEmpty();
   string displayAll();
   string showHead();
   string showTail();
@@ -122,6 +125,22 @@ string PriorityQueue::showTail()
 
 void PriorityQueue::createPriorityQueue(string filePath)
 {
+
+  if (!isEmpty())
+  {
+    purge();
+    loadFromFile(filePath);
+    return;
+  }
+  else
+  {
+    loadFromFile(filePath);
+    return;
+  }
+};
+
+void PriorityQueue::loadFromFile(string filePath)
+{
   ifstream file(filePath);
   string str;
   string Month;
@@ -152,6 +171,18 @@ void PriorityQueue::createPriorityQueue(string filePath)
     line >> WeeksAtNumberOne;
     insert(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
-  return;
+}
+
+bool PriorityQueue::isEmpty()
+{
+  return (head == NULL ? true : false);
+};
+
+void PriorityQueue::purge()
+{
+  while (head != NULL)
+  {
+    dequeue();
+  }
 };
 #endif

@@ -20,11 +20,14 @@ public:
   }
   // Mutator functions
   void createStack(string);
+  void loadFromFile(string);
   string pop();
+  void purge();
   // Accessor function
   string displayAll();
   string showHead();
   string showTail();
+  bool isEmpty();
 };
 
 void Stack::push(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -102,7 +105,7 @@ string Stack::showTail()
   return (ptr->getData());
 };
 
-void Stack::createStack(string filePath)
+void Stack::loadFromFile(string filePath)
 {
   ifstream file(filePath);
   string str;
@@ -135,5 +138,34 @@ void Stack::createStack(string filePath)
     push(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
   return;
+};
+
+void Stack::createStack(string filePath)
+{
+
+  if (!isEmpty())
+  {
+    purge();
+    loadFromFile(filePath);
+    return;
+  }
+  else
+  {
+    loadFromFile(filePath);
+    return;
+  }
+};
+
+bool Stack::isEmpty()
+{
+  return (head == NULL ? true : false);
+};
+
+void Stack::purge()
+{
+  while (head != NULL)
+  {
+    pop();
+  }
 };
 #endif

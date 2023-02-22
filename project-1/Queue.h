@@ -17,8 +17,11 @@ public:
   Queue() { head = NULL; }
   // Mutator functions
   void createQueue(string);
+  void loadFromFile(string);
   string dequeue();
+  void purge();
   // Accessor function
+  bool isEmpty();
   string displayAll();
   string showHead();
   string showTail();
@@ -101,6 +104,22 @@ string Queue::showTail()
 
 void Queue::createQueue(string filePath)
 {
+
+  if (!isEmpty())
+  {
+    purge();
+    loadFromFile(filePath);
+    return;
+  }
+  else
+  {
+    loadFromFile(filePath);
+    return;
+  }
+};
+
+void Queue::loadFromFile(string filePath)
+{
   ifstream file(filePath);
   string str;
   string Month;
@@ -132,5 +151,18 @@ void Queue::createQueue(string filePath)
     enqueue(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
   return;
+};
+
+bool Queue::isEmpty()
+{
+  return (head == NULL ? true : false);
+};
+
+void Queue::purge()
+{
+  while (head != NULL)
+  {
+    dequeue();
+  }
 };
 #endif

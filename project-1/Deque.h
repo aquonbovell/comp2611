@@ -23,10 +23,13 @@ public:
   }
   // Mutator functions
   void createDeque(string);
+  void loadFromFile(string);
   string dequeueHead();
   string dequeueTail();
+  void purge();
   // Accessor function
   string displayAll();
+  bool isEmpty();
   string showHead();
   string showTail();
 };
@@ -164,6 +167,22 @@ string Deque::showTail()
 
 void Deque::createDeque(string filePath)
 {
+
+  if (!isEmpty())
+  {
+    purge();
+    loadFromFile(filePath);
+    return;
+  }
+  else
+  {
+    loadFromFile(filePath);
+    return;
+  }
+};
+
+void Deque::loadFromFile(string filePath)
+{
   ifstream file(filePath);
   string str;
   string Month;
@@ -199,4 +218,17 @@ void Deque::createDeque(string filePath)
   }
   return;
 };
+
+bool Deque::isEmpty()
+{
+  return ((head == NULL || tail == NULL) ? true : false);
+};
+
+void Deque::purge()
+{
+  while (head != NULL)
+  {
+    dequeueHead();
+  }
+}
 #endif

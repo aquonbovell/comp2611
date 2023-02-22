@@ -1,4 +1,5 @@
-// ==============================================================================
+// ==================================================================================
+//
 //
 //  Project-01.cpp
 //  COMP2611 - Project #1
@@ -6,7 +7,7 @@
 //  Created by Aquon Bovell on 02/15/2023.
 //
 //
-// ==============================================================================
+// ==================================================================================
 /************************************************************************************
   Step 1: Always include the header file wx.h
 *************************************************************************************/
@@ -253,9 +254,9 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   // Put something in the Third section of the status bar
   SetStatusText(wxT("    417002714"), 2);
   // Set up the panel for data display
-  //=========================================================================================
-  //=========================== DO NOT CHANGE THE CODE IN THIS SECTION ======================
-  //=========================================================================================
+  //=================================================================================
+  //======================= DO NOT CHANGE THE CODE IN THIS SECTION ==================
+  //=================================================================================
   wxPanel *panel = new wxPanel(this, -1);
   wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);    // Vertical sizer for main window
   wxBoxSizer *hbox1 = new wxBoxSizer(wxHORIZONTAL); // Horizontal sizer for main window
@@ -290,7 +291,7 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
 *************************************************************************************
 *************************************************************************************/
 //===================================================================================
-//=========== Definition for the File Functions =====================================
+//=========== Definitions for the File Functions ====================================
 //===================================================================================
 void ProjectFrame::OnOpenFile(wxCommandEvent &event)
 {
@@ -353,7 +354,7 @@ void ProjectFrame::OnExit(wxCommandEvent &event)
 };
 
 //===================================================================================
-//=========== Definition for the Queue Functions ====================================
+//=========== Definitions for the Queue Functions ===================================
 //===================================================================================
 void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
 {
@@ -408,13 +409,16 @@ void ProjectFrame::OnDisplayAllQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueQueue(wxCommandEvent &)
 {
+  string records = q->dequeue();
   filenameTextBox->Clear();
   MainEditBox->Clear();
-  q->dequeue();
+  // Display the string in the MainEditBox
+  wxString wxRecords(records.c_str(), wxConvUTF8);
+  MainEditBox->AppendText(wxRecords);
 };
 
 //===================================================================================
-//=========== Definition for the Deque Functions ====================================
+//=========== Definitions for the Deque Functions ===================================
 //===================================================================================
 void ProjectFrame::OnCreateDeque(wxCommandEvent &event)
 {
@@ -469,20 +473,26 @@ void ProjectFrame::OnDisplayAllDeque(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueHeadDeque(wxCommandEvent &)
 {
+  string records = d->dequeueHead();
   filenameTextBox->Clear();
   MainEditBox->Clear();
-  d->dequeueHead();
+  // Display the string in the MainEditBox
+  wxString wxRecords(records.c_str(), wxConvUTF8);
+  MainEditBox->AppendText(wxRecords);
 };
 
 void ProjectFrame::OnDequeueTailDeque(wxCommandEvent &)
 {
+  string records = d->dequeueTail();
   filenameTextBox->Clear();
   MainEditBox->Clear();
-  d->dequeueTail();
+  // Display the string in the MainEditBox
+  wxString wxRecords(records.c_str(), wxConvUTF8);
+  MainEditBox->AppendText(wxRecords);
 };
 
 //===================================================================================
-//=========== Definition for the Priority Queue Functions ===========================
+//=========== Definitions for the Priority Queue Functions ==========================
 //===================================================================================
 void ProjectFrame::OnCreatePriorityQueue(wxCommandEvent &event)
 {
@@ -537,13 +547,16 @@ void ProjectFrame::OnDisplayAllPriorityQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeuePriorityQueue(wxCommandEvent &)
 {
+  string records = pq->dequeue();
   filenameTextBox->Clear();
   MainEditBox->Clear();
-  pq->dequeue();
+  // Display the string in the MainEditBox
+  wxString wxRecords(records.c_str(), wxConvUTF8);
+  MainEditBox->AppendText(wxRecords);
 };
 
 //===================================================================================
-//=========== Definition for the Stack Functions ====================================
+//=================== Definitions for the Stack Functions ===========================
 //===================================================================================
 void ProjectFrame::OnCreateStack(wxCommandEvent &event)
 {
@@ -598,7 +611,10 @@ void ProjectFrame::OnDisplayAllStack(wxCommandEvent &event)
 
 void ProjectFrame::OnPopStack(wxCommandEvent &)
 {
+  string records = s->pop();
   filenameTextBox->Clear();
   MainEditBox->Clear();
-  s->pop();
+  // Display the string in the MainEditBox
+  wxString wxRecords(records.c_str(), wxConvUTF8);
+  MainEditBox->AppendText(wxRecords);
 };
