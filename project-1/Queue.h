@@ -10,9 +10,9 @@ class Queue
 {
 private:
   Node *head;
-  void enqueue(string, int, string, string, string, int);
 
 public:
+  void enqueue(string, int, string, string, string, int);
   // Constructor function
   Queue() { head = NULL; }
   // Mutator functions

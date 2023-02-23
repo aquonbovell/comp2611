@@ -1,14 +1,13 @@
-#include "PQueue.h"
+#include "Queue.h"
 #include <iostream>
 
 int main()
 {
-  PriorityQueue *pq = new PriorityQueue();
-  std::cout << pq->isEmpty()<<std::endl;
-  pq->createPriorityQueue("../catalog.txt");
-  std::cout << pq->isEmpty()<<std::endl;
-  std::cout<<pq->displayAll()<<std::endl;
-  pq->createPriorityQueue("../catalog.txt");
-  std::cout << std::boolalpha<< pq->isEmpty()<<std::endl;
-
+  Queue *q = new Queue();
+  q->enqueue("Jan", 1900, "Buju", "Sometime", "Jam Rock", 6);
+  q->displayAll();
+  q->enqueue("Jan", 1900, "Buju", "Sometime", "Jam Rock", 6);
+  q->displayAll();
+  q->enqueue("Jan", 1900, "Buju", "Sometime", "Jam Rock", 6);
+  q->displayAll();
 }
