@@ -12,19 +12,19 @@ private:
   Node *head;
 
 public:
-  void enqueue(string, int, string, string, string, int);
   // Constructor function
   Queue() { head = NULL; }
   // Mutator functions
-  void createQueue(string);
-  void loadFromFile(string);
+  string createQueue(string);
+  string loadFromFile(string);
   string dequeue();
+  void enqueue(string, int, string, string, string, int);
   void purge();
   // Accessor function
-  bool isEmpty();
   string displayAll();
   string showHead();
   string showTail();
+  bool isEmpty();
 };
 
 void Queue::enqueue(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -102,23 +102,19 @@ string Queue::showTail()
   return (ptr->getData());
 };
 
-void Queue::createQueue(string filePath)
+string Queue::createQueue(string filePath)
 {
 
   if (!isEmpty())
   {
     purge();
-    loadFromFile(filePath);
-    return;
+    return (loadFromFile(filePath));
   }
   else
-  {
-    loadFromFile(filePath);
-    return;
-  }
+    return (loadFromFile(filePath));
 };
 
-void Queue::loadFromFile(string filePath)
+string Queue::loadFromFile(string filePath)
 {
   ifstream file(filePath);
   string str;
@@ -133,7 +129,7 @@ void Queue::loadFromFile(string filePath)
   if (!file)
   {
     exit(EXIT_FAILURE);
-    return;
+    return ("The file can not be opened!!");
   }
   // reads the headings of the file
   getline(file, str);
@@ -150,7 +146,7 @@ void Queue::loadFromFile(string filePath)
     line >> WeeksAtNumberOne;
     enqueue(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
-  return;
+  return ("The Queue was successfully created!!");
 };
 
 bool Queue::isEmpty()

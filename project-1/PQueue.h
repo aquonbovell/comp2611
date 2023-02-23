@@ -10,21 +10,21 @@ class PriorityQueue
 {
 private:
   Node *head;
-  void insert(string, int, string, string, string, int);
 
 public:
   // Constructor function
   PriorityQueue() { head = NULL; }
   // Mutator functions
-  void loadFromFile(string);
-  void createPriorityQueue(string);
+  string loadFromFile(string);
+  string createPriorityQueue(string);
   string dequeue();
+  void insert(string, int, string, string, string, int);
   void purge();
   // Accessor function
-  bool isEmpty();
   string displayAll();
   string showHead();
   string showTail();
+  bool isEmpty();
 };
 
 void PriorityQueue::insert(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -123,23 +123,19 @@ string PriorityQueue::showTail()
   return (ptr->getData());
 };
 
-void PriorityQueue::createPriorityQueue(string filePath)
+string PriorityQueue::createPriorityQueue(string filePath)
 {
 
   if (!isEmpty())
   {
     purge();
-    loadFromFile(filePath);
-    return;
+    return (loadFromFile(filePath));
   }
   else
-  {
-    loadFromFile(filePath);
-    return;
-  }
+    return (loadFromFile(filePath));
 };
 
-void PriorityQueue::loadFromFile(string filePath)
+string PriorityQueue::loadFromFile(string filePath)
 {
   ifstream file(filePath);
   string str;
@@ -154,7 +150,7 @@ void PriorityQueue::loadFromFile(string filePath)
   if (!file)
   {
     exit(EXIT_FAILURE);
-    return;
+    return ("The file can not be opened!!");
   }
   // reads the headings of the file
   getline(file, str);
@@ -171,6 +167,7 @@ void PriorityQueue::loadFromFile(string filePath)
     line >> WeeksAtNumberOne;
     insert(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
+  return ("The Priority Queue was successfully created!!");
 }
 
 bool PriorityQueue::isEmpty()

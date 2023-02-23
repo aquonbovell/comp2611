@@ -12,8 +12,6 @@ class Deque
 private:
   Node *head;
   Node *tail;
-  void enqueueHead(string, int, string, string, string, int);
-  void enqueueTail(string, int, string, string, string, int);
 
 public:
   // Constructor functions
@@ -23,16 +21,18 @@ public:
     tail = NULL;
   }
   // Mutator functions
-  void createDeque(string);
-  void loadFromFile(string);
+  string createDeque(string);
+  string loadFromFile(string);
   string dequeueHead();
   string dequeueTail();
+  void enqueueHead(string, int, string, string, string, int);
+  void enqueueTail(string, int, string, string, string, int);
   void purge();
   // Accessor function
   string displayAll();
-  bool isEmpty();
   string showHead();
   string showTail();
+  bool isEmpty();
 };
 
 void Deque::enqueueHead(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -166,23 +166,18 @@ string Deque::showTail()
   return (tail->getData());
 };
 
-void Deque::createDeque(string filePath)
+string Deque::createDeque(string filePath)
 {
-
   if (!isEmpty())
   {
     purge();
-    loadFromFile(filePath);
-    return;
+    return (loadFromFile(filePath));
   }
   else
-  {
-    loadFromFile(filePath);
-    return;
-  }
+    return (loadFromFile(filePath));
 };
 
-void Deque::loadFromFile(string filePath)
+string Deque::loadFromFile(string filePath)
 {
   ifstream file(filePath);
   string str;
@@ -197,7 +192,7 @@ void Deque::loadFromFile(string filePath)
   if (!file)
   {
     exit(EXIT_FAILURE);
-    return;
+    return ("The file can not be opened!!");
   }
   // reads the headings of the file
   getline(file, str);
@@ -217,7 +212,7 @@ void Deque::loadFromFile(string filePath)
     else
       enqueueTail(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
-  return;
+  return ("The Deque was successfully created!!");
 };
 
 bool Deque::isEmpty()
@@ -231,5 +226,5 @@ void Deque::purge()
   {
     dequeueHead();
   }
-}
+};
 #endif

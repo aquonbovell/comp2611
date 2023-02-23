@@ -10,7 +10,6 @@ class Stack
 {
 private:
   Node *head;
-  void push(string, int, string, string, string, int);
 
 public:
   // Constructor function
@@ -19,9 +18,10 @@ public:
     head = NULL;
   }
   // Mutator functions
-  void createStack(string);
-  void loadFromFile(string);
+  string createStack(string);
+  string loadFromFile(string);
   string pop();
+  void push(string, int, string, string, string, int);
   void purge();
   // Accessor function
   string displayAll();
@@ -105,7 +105,7 @@ string Stack::showTail()
   return (ptr->getData());
 };
 
-void Stack::loadFromFile(string filePath)
+string Stack::loadFromFile(string filePath)
 {
   ifstream file(filePath);
   string str;
@@ -120,7 +120,7 @@ void Stack::loadFromFile(string filePath)
   if (!file)
   {
     exit(EXIT_FAILURE);
-    return;
+    return ("The file can not be opened!!");
   }
   // reads the headings of the file
   getline(file, str);
@@ -137,23 +137,19 @@ void Stack::loadFromFile(string filePath)
     line >> WeeksAtNumberOne;
     push(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
-  return;
+  return ("The Stack was successfully created!!");
 };
 
-void Stack::createStack(string filePath)
+string Stack::createStack(string filePath)
 {
 
   if (!isEmpty())
   {
     purge();
-    loadFromFile(filePath);
-    return;
+    return (loadFromFile(filePath));
   }
   else
-  {
-    loadFromFile(filePath);
-    return;
-  }
+    return (loadFromFile(filePath));
 };
 
 bool Stack::isEmpty()
