@@ -4,31 +4,30 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-using std::string;
-using std::to_string;
-using std::ifstream;
-using std::stringstream;
-using std::getline;
+
+using namespace std;
 
 class PriorityQueue
 {
 private:
+  // define the attributes of the Priority Queue
   Node *head;
 
 public:
   // Constructor function
-  PriorityQueue() { head = NULL; }
+  PriorityQueue() { head = NULL; } // set the attributes to NULL
   // Mutator functions
   string loadFromFile(string);
   string createPriorityQueue(string);
   string dequeue();
   void insert(string, int, string, string, string, int);
-  void purge();
+  void purge() { head = NULL; }; // remove all references of the Nodes in the Priority Queue to then be deleted
   // Accessor function
   string displayAll();
   string showHead();
   string showTail();
-  bool isEmpty();
+  // returns the state of the Priority Queue
+  bool isEmpty() { return (head == NULL ? true : false); };
 };
 
 void PriorityQueue::insert(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -54,6 +53,8 @@ void PriorityQueue::insert(string Month, int Year, string Artist, string SongTit
   // must be stored "somewhere" down the list
   Node *previous = head;
   Node *current = head->getNext();
+  // iterate through the Priority Queue to reach where the new Node is
+  // to be added
   while (current != NULL && current->getWeeksAtNumberOne() >= freshNode->getWeeksAtNumberOne())
   {
     previous = current;
@@ -79,6 +80,7 @@ string PriorityQueue::dequeue()
   // Case 2: If the priority queue has more than one Node remaining,
   // remove the head Node and move the next Node to the head
   Node *ptr = head;
+  // get the data from the head before the head is deleted
   string str = head->getData();
   head = head->getNext();
   delete ptr;
@@ -95,9 +97,11 @@ string PriorityQueue::displayAll()
   string str = "";
   for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
   {
+    // append each data from each Node in the Priority Queue to a single string
     str.append(ptr->getData());
     str.append("\n");
   }
+  // return the data in the Priority Queue to be displayed
   return (str);
 };
 
@@ -122,6 +126,7 @@ string PriorityQueue::showTail()
   // iterate through the queue until we reach the end
   // and return the data at the tail
   Node *ptr = head;
+  // iterate through the Priority Queue to reach the last Node in the Priority Queue
   for (; ptr->getNext() != NULL; ptr = ptr->getNext())
     ;
   return (ptr->getData());
@@ -129,19 +134,25 @@ string PriorityQueue::showTail()
 
 string PriorityQueue::createPriorityQueue(string filePath)
 {
-
+  // Case 1: If the Priority Queue is not empty, purge the Priority Queue
+  // and load all the data from the filePath to the Priority Queue
   if (!isEmpty())
   {
+    // remove all Nodes from the Priority Queue
     purge();
     return (loadFromFile(filePath));
   }
+  // Case 2:  If the Priority Queue is empty, load all the data
+  // from the filePath to the Priority Queue
   else
     return (loadFromFile(filePath));
 };
 
 string PriorityQueue::loadFromFile(string filePath)
 {
+  // create a file to read from
   ifstream file(filePath);
+  // defines all the fields in the file
   string str;
   string Month;
   string Artist;
@@ -158,9 +169,10 @@ string PriorityQueue::loadFromFile(string filePath)
   }
   // reads the headings of the file
   getline(file, str);
-  // iterate through each line and add the data to the queue
+  // iterate through each line and read each line from the file into a string
   while (!file.eof() && getline(file, str))
   {
+    // create a stream to get all the fields from
     stringstream line(str);
     getline(line, Month, '*');
     line >> Year;
@@ -169,21 +181,10 @@ string PriorityQueue::loadFromFile(string filePath)
     getline(line, SongTitle, '*');
     getline(line, RecordLabel, '*');
     line >> WeeksAtNumberOne;
+    // add the data to the Priority Queue
     insert(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
+  // send a success message indicating that all the data was added to the Priority Queue
   return ("The Priority Queue was successfully created!!");
 }
-
-bool PriorityQueue::isEmpty()
-{
-  return (head == NULL ? true : false);
-};
-
-void PriorityQueue::purge()
-{
-  while (head != NULL)
-  {
-    dequeue();
-  }
-};
 #endif

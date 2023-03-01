@@ -4,15 +4,13 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-using std::string;
-using std::to_string;
-using std::ifstream;
-using std::stringstream;
-using std::getline;
+
+using namespace std;
 
 class Stack
 {
 private:
+  // define the attributes of the Stack
   Node *head;
 
 public:
@@ -26,12 +24,13 @@ public:
   string loadFromFile(string);
   string pop();
   void push(string, int, string, string, string, int);
-  void purge();
+  void purge() { head = NULL; }; // remove all references of the Nodes in the Stack to then be deleted
   // Accessor function
   string displayAll();
   string showHead();
   string showTail();
-  bool isEmpty();
+  // returns the state of the Stack
+  bool isEmpty() { return ((head == NULL) ? true : false); };
 };
 
 void Stack::push(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -63,6 +62,7 @@ string Stack::pop()
   Node *previousHead = head;
   string str = "";
   head = head->getNext();
+   // get the data from the head before the head is deleted
   str = previousHead->getData();
   delete previousHead;
   return (str);
@@ -81,6 +81,7 @@ string Stack::displayAll()
     str.append(ptr->getData());
     str.append("\n");
   }
+  // return the data in the Stack to be displayed
   return (str);
 };
 
@@ -111,7 +112,9 @@ string Stack::showTail()
 
 string Stack::loadFromFile(string filePath)
 {
+  // create a file to read from 
   ifstream file(filePath);
+  // defines all the fields in the file
   string str;
   string Month;
   string Artist;
@@ -128,9 +131,10 @@ string Stack::loadFromFile(string filePath)
   }
   // reads the headings of the file
   getline(file, str);
-  // iterate through each line and add the data to the stack
+  // iterate through each line and read each line from the file into a string 
   while (!file.eof() && getline(file, str))
   {
+    // create a stream to get all the fields from
     stringstream line(str);
     getline(line, Month, '*');
     line >> Year;
@@ -139,33 +143,26 @@ string Stack::loadFromFile(string filePath)
     getline(line, SongTitle, '*');
     getline(line, RecordLabel, '*');
     line >> WeeksAtNumberOne;
+    // add the data to the Stack
     push(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
+   // send a success message indicating that all the data was added to the Stack
   return ("The Stack was successfully created!!");
 };
 
 string Stack::createStack(string filePath)
 {
-
+// Case 1: If the Stack is not empty, purge the Stack
+  // and load all the data from the filePath to the Stack
   if (!isEmpty())
   {
+    // remove all Nodes from the Stack
     purge();
     return (loadFromFile(filePath));
   }
+  // Case 2:  If the Stack is empty, load all the data
+  // from the filePath to the Stack
   else
     return (loadFromFile(filePath));
-};
-
-bool Stack::isEmpty()
-{
-  return (head == NULL ? true : false);
-};
-
-void Stack::purge()
-{
-  while (head != NULL)
-  {
-    pop();
-  }
 };
 #endif
