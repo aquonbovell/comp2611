@@ -212,38 +212,38 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   menuBar->Append(menuStack, wxT("Stack"));
   menuBar->Append(menuHelp, wxT("Help"));
   // Append the sub-menu items to the File Main Menu item
-  menuFile->Append(ID_OpenFile, wxT("&Open File..."), wxT("Open an Existing file"));
-  menuFile->Append(ID_Display, wxT("&Display File..."), wxT("Display contents of opened file"));
-  menuFile->Append(ID_Save, wxT("&Save"), wxT("Save opened file"));
-  menuFile->Append(ID_SaveAs, wxT("Save &As..."), wxT("Save display as a new file"));
-  menuFile->Append(ID_Exit, wxT("E&xit"), wxT("Close and EXIT Program"));
+  menuFile->Append(ID_OpenFile, wxT("Open File..."), wxT("Open an Existing file"));
+  menuFile->Append(ID_Display, wxT("Display File..."), wxT("Display contents of opened file"));
+  menuFile->Append(ID_Save, wxT("Save"), wxT("Save opened file"));
+  menuFile->Append(ID_SaveAs, wxT("Save As..."), wxT("Save display as a new file"));
+  menuFile->Append(ID_Exit, wxT("Exit"), wxT("Close and EXIT Program"));
   // Append the sub-menu items to the Queue Main Menu item
-  menuQueue->Append(ID_CreateQueue, wxT("Create &Queue"), wxT("Create a Queue"));
-  menuQueue->Append(ID_DisplayAllQueue, wxT("&Display All"), wxT("Display contents of the Queue"));
-  menuQueue->Append(ID_ShowHeadQueue, wxT("Show &Head"), wxT("Show the first item of the Queue"));
-  menuQueue->Append(ID_ShowTailQueue, wxT("Show &Tail"), wxT("Show the last item of the Queue"));
-  menuQueue->Append(ID_DequeueQueue, wxT("&Dequeue"), wxT("Dequeue the first item from the Queue"));
+  menuQueue->Append(ID_CreateQueue, wxT("Create Queue"), wxT("Create a Queue"));
+  menuQueue->Append(ID_DisplayAllQueue, wxT("Display All"), wxT("Display contents of the Queue"));
+  menuQueue->Append(ID_ShowHeadQueue, wxT("Show Head"), wxT("Show the first item of the Queue"));
+  menuQueue->Append(ID_ShowTailQueue, wxT("Show Tail"), wxT("Show the last item of the Queue"));
+  menuQueue->Append(ID_DequeueQueue, wxT("Dequeue"), wxT("Dequeue the first item from the Queue"));
   // Append the sub-menu items to the Deque Main Menu item
-  menuDeque->Append(ID_CreateDeque, wxT("Create &Deque"), wxT("Create a Deque"));
-  menuDeque->Append(ID_DisplayAllDeque, wxT("&Display All"), wxT("Display contents of the Deque"));
-  menuDeque->Append(ID_ShowHeadDeque, wxT("Show &Head"), wxT("Show the first item of the Deque"));
-  menuDeque->Append(ID_ShowTailDeque, wxT("Show &Tail"), wxT("Show the last item of the Deque"));
-  menuDeque->Append(ID_DequeueHeadDeque, wxT("&Dequeue Head"), wxT("Dequeue the first item from the Deque"));
-  menuDeque->Append(ID_DequeueTailDeque, wxT("&Dequeue Tail"), wxT("Dequeue the last item from the Deque"));
+  menuDeque->Append(ID_CreateDeque, wxT("Create Deque"), wxT("Create a Deque"));
+  menuDeque->Append(ID_DisplayAllDeque, wxT("Display All"), wxT("Display contents of the Deque"));
+  menuDeque->Append(ID_ShowHeadDeque, wxT("Show Head"), wxT("Show the first item of the Deque"));
+  menuDeque->Append(ID_ShowTailDeque, wxT("Show Tail"), wxT("Show the last item of the Deque"));
+  menuDeque->Append(ID_DequeueHeadDeque, wxT("Dequeue Head"), wxT("Dequeue the first item from the Deque"));
+  menuDeque->Append(ID_DequeueTailDeque, wxT("Dequeue Tail"), wxT("Dequeue the last item from the Deque"));
   // Append the sub-menu items to the Queue Main Menu item
-  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create &PQueue"), wxT("Create a Priority Queue"));
-  menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("&Display All"), wxT("Display contents of the Priority Queue"));
-  menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show &Head"), wxT("Show the first item of the Priority Queue"));
-  menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show &Tail"), wxT("Show the last item of the Priority Queue"));
-  menuPQueue->Append(ID_DequeuePriorityQueue, wxT("&Dequeue"), wxT("Dequeue the first item from the Priority Queue"));
+  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create PQueue"), wxT("Create a Priority Queue"));
+  menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("Display All"), wxT("Display contents of the Priority Queue"));
+  menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show Head"), wxT("Show the first item of the Priority Queue"));
+  menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show Tail"), wxT("Show the last item of the Priority Queue"));
+  menuPQueue->Append(ID_DequeuePriorityQueue, wxT("Dequeue"), wxT("Dequeue the first item from the Priority Queue"));
   // Append the sub-menu items to the Queue Main Menu item
-  menuStack->Append(ID_CreateStack, wxT("Create &Stack"), wxT("Create a Stack"));
-  menuStack->Append(ID_DisplayAllStack, wxT("&Display All"), wxT("Display contents of the Stack"));
-  menuStack->Append(ID_ShowHeadStack, wxT("Show &Head"), wxT("Show the first item of the Stack"));
-  menuStack->Append(ID_ShowTailStack, wxT("Show &Tail"), wxT("Show the last item of the Stack"));
-  menuStack->Append(ID_PopStack, wxT("&Pop"), wxT("Pop the first item from the Stack"));
+  menuStack->Append(ID_CreateStack, wxT("Create Stack"), wxT("Create a Stack"));
+  menuStack->Append(ID_DisplayAllStack, wxT("Display All"), wxT("Display contents of the Stack"));
+  menuStack->Append(ID_ShowHeadStack, wxT("Show Head"), wxT("Show the first item of the Stack"));
+  menuStack->Append(ID_ShowTailStack, wxT("Show Tail"), wxT("Show the last item of the Stack"));
+  menuStack->Append(ID_PopStack, wxT("Pop"), wxT("Pop the first item from the Stack"));
 
-  menuHelp->Append(wxID_ABOUT, wxT("&About"), wxT("Shows the details of the program"));
+  menuHelp->Append(wxID_ABOUT, wxT("About"), wxT("Shows the details of the program"));
   // ... and now... attach this main menu bar to the frame
   SetMenuBar(menuBar);
   // Create a status bar just for fun
