@@ -11,128 +11,135 @@ class PriorityQueue
 {
 private:
   // define the attributes of the Priority Queue
-  Node *head;
+  Node *head_;
 
 public:
   // Constructor function
-  PriorityQueue() { head = NULL; } // set the attributes to NULL
+  PriorityQueue() : head_(NULL) {} // set the attribute to NULL
   // Mutator functions
-  string loadFromFile(string);
-  string createPriorityQueue(string);
-  string dequeue();
-  void insert(string, int, string, string, string, int);
-  void purge() { head = NULL; }; // remove all references of the Nodes in the Priority Queue to then be deleted
-  // Accessor function
-  string displayAll();
-  string showHead();
-  string showTail();
-  // returns the state of the Priority Queue
-  bool isEmpty() { return (head == NULL ? true : false); };
+  // This method takes a string as input and creates a Priority Queue from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Priority Queue.
+  const string createPriorityQueue(const string &);
+  // This method takes a filename as input and loads a Priority Queue from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Priority Queue.
+  const string loadFromFile(const string &);
+  // This method removes the head node from the Priority Queue and returns its data.
+  const string dequeue();
+  // This method creates a new node with the given data and inserts it at the head of the Priority Queue.
+  void insert(const string &, int, const string &, const string &, const string &, int);
+  // This method removes all nodes from the Priority Queue.
+  void purge() { head_ = NULL; };
+  // Accessor functions
+  // This method returns a string representation of the Priority Queue, with each node's data separated by a newline character
+  const string displayAll() const;
+  // This method returns the data of the head node without removing it.
+  const string showHead() const;
+  // This method returns the data of the tail node without removing it.
+  const string showTail() const;
+  // This method returns true if the Priority Queue is empty, and false otherwise.
+  const bool isEmpty() const { return ((head_ == NULL) ? true : false); };
 };
 
-void PriorityQueue::insert(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
+void PriorityQueue::insert(const string &Month, int Year, const string &Artist, const string &SongTitle, const string &RecordLabel, int WeeksAtNumberOne)
 {
   // Create the new node with the data from the parameter list
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   // Case 1: If the priority queue is empty, add the node to the head of the
   // priority queue
-  if (head == NULL)
+  if (head_ == NULL)
   {
-    head = freshNode;
+    head_ = freshNode;
     return;
   }
   // Case 2: If the priority queue is not empty and the fresh Node
   // should be the new first Node
-  if (freshNode->getWeeksAtNumberOne() > head->getWeeksAtNumberOne())
+  if (freshNode->get_weeks_at_number_one() > head_->get_weeks_at_number_one())
   {
-    freshNode->setNext(head);
-    head = freshNode;
+    freshNode->set_next(head_);
+    head_ = freshNode;
     return;
   }
   // Case 3: If the priority queue is not empty and the fresh Node
   // must be stored "somewhere" down the list
-  Node *previous = head;
-  Node *current = head->getNext();
+  Node *previous = head_;
+  Node *current = head_->get_next();
   // iterate through the Priority Queue to reach where the new Node is
   // to be added
-  while (current != NULL && current->getWeeksAtNumberOne() >= freshNode->getWeeksAtNumberOne())
+  while (current != NULL && current->get_weeks_at_number_one() >= freshNode->get_weeks_at_number_one())
   {
     previous = current;
-    current = current->getNext();
+    current = current->get_next();
   }
   // If the fresh Node is to be stored at the end of the list
   if (current == NULL)
   {
-    previous->setNext(freshNode);
+    previous->set_next(freshNode);
     return;
   }
   // If the fresh Node is to be stored somewhere within the list
-  freshNode->setNext(current);
-  previous->setNext(freshNode);
+  freshNode->set_next(current);
+  previous->set_next(freshNode);
   return;
 };
 
-string PriorityQueue::dequeue()
+const string PriorityQueue::dequeue()
 {
   // Case 1: If the priority queue is empty
-  if (head == NULL)
+  if (head_ == NULL)
     return ("The Priority Queue is empty");
   // Case 2: If the priority queue has more than one Node remaining,
   // remove the head Node and move the next Node to the head
-  Node *ptr = head;
+  Node *ptr = head_;
   // get the data from the head before the head is deleted
-  string str = head->getData();
-  head = head->getNext();
+  string str = head_->get_data();
+  head_ = head_->get_next();
   delete ptr;
   return (str);
 };
 
-string PriorityQueue::displayAll()
+const string PriorityQueue::displayAll() const
 {
   // Case 1: If the priority queue is empty
-  if (head == NULL)
+  if (head_ == NULL)
     return "The Priority Queue is empty";
   // Case 2: If the priority queue is not empty, append all the data from
   // each Node in the queue to a string
   string str = "";
-  for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
+  for (Node *ptr = head_; ptr != NULL; ptr = ptr->get_next())
   {
     // append each data from each Node in the Priority Queue to a single string
-    str.append(ptr->getData());
-    str.append("\n");
+    str.append(ptr->get_data() + "\n");
   }
   // return the data in the Priority Queue to be displayed
   return (str);
 };
 
-string PriorityQueue::showHead()
+const string PriorityQueue::showHead() const
 {
   // Case 1: If the priority queue is empty
-  if (head == NULL)
+  if (head_ == NULL)
     return ("The Queue is empty!");
   // Case 2: If the priority queue is not empty, return
   // the data at the head
   else
-    return (head->getData());
+    return (head_->get_data());
 };
 
-string PriorityQueue::showTail()
+const string PriorityQueue::showTail() const
 {
   // Case 1: If the priority queue is empty, return
   // the data at the tail
-  if (head == NULL)
+  if (head_ == NULL)
     return "The Priority Queue is empty!";
   // Case 2: If the priority queue is not empty,
   // iterate through the queue until we reach the end
   // and return the data at the tail
-  Node *ptr = head;
+  Node *ptr = head_;
   // iterate through the Priority Queue to reach the last Node in the Priority Queue
-  for (; ptr->getNext() != NULL; ptr = ptr->getNext())
+  for (; ptr->get_next() != NULL; ptr = ptr->get_next())
     ;
-  return (ptr->getData());
+  return (ptr->get_data());
 };
 
-string PriorityQueue::createPriorityQueue(string filePath)
+const string PriorityQueue::createPriorityQueue(const string &filePath)
 {
   // Case 1: If the Priority Queue is not empty, purge the Priority Queue
   // and load all the data from the filePath to the Priority Queue
@@ -144,47 +151,42 @@ string PriorityQueue::createPriorityQueue(string filePath)
   }
   // Case 2:  If the Priority Queue is empty, load all the data
   // from the filePath to the Priority Queue
-  else
-    return (loadFromFile(filePath));
+  return (loadFromFile(filePath));
 };
 
-string PriorityQueue::loadFromFile(string filePath)
+const string PriorityQueue::loadFromFile(const string &filePath)
 {
-  // create a file to read from
   ifstream file(filePath);
-  // defines all the fields in the file
-  string str;
-  string Month;
-  string Artist;
-  string SongTitle;
-  string RecordLabel;
-  char ch;
-  int Year;
-  int WeeksAtNumberOne;
-  // if the file is open by another resource or the file is not found
-  if (!file)
+  if (!file.is_open()) // check if the file was opened successfully
+    return ("The file could not be opened.");
+  string line;
+  string month;
+  string artist;
+  string songTitle;
+  string recordLabel;
+  char separator;
+  int year;
+  int weeksAtNumberOne;
+  // Read the first line to skip the header
+  getline(file, line);
+  // Read each line of the file
+  while (getline(file, line))
   {
-    exit(EXIT_FAILURE);
-    return ("The file can not be opened!!");
-  }
-  // reads the headings of the file
-  getline(file, str);
-  // iterate through each line and read each line from the file into a string
-  while (!file.eof() && getline(file, str))
-  {
-    // create a stream to get all the fields from
-    stringstream line(str);
-    getline(line, Month, '*');
-    line >> Year;
-    line >> ch;
-    getline(line, Artist, '*');
-    getline(line, SongTitle, '*');
-    getline(line, RecordLabel, '*');
-    line >> WeeksAtNumberOne;
+    // Create a stringstream from the line
+    stringstream ss(line);
+    // Parse the fields from the line
+    getline(ss, month, '*');
+    ss >> year;
+    ss >> separator;
+    getline(ss, artist, '*');
+    getline(ss, songTitle, '*');
+    getline(ss, recordLabel, '*');
+    ss >> weeksAtNumberOne;
     // add the data to the Priority Queue
-    insert(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
+    insert(month, year, artist, songTitle, recordLabel, weeksAtNumberOne);
   }
-  // send a success message indicating that all the data was added to the Priority Queue
-  return ("The Priority Queue was successfully created!!");
+  // Close the file
+  file.close();
+  return ("The Deque was successfully created!");
 }
 #endif
