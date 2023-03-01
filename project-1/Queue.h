@@ -2,7 +2,6 @@
 #define QUEUE_H
 #include "Node.h"
 #include <fstream>
-#include <sstream>
 #include <string>
 
 using namespace std;
@@ -11,155 +10,148 @@ class Queue
 {
 private:
   // define the attributes of the Queue
-  Node *head;
+  Node *head_;
 
 public:
   // Constructor function
-  Queue() { head = NULL; } // set the attributes to NULL
+  Queue() : head_(NULL) {} // set the attribute to NULL
   // Mutator functions
-  string createQueue(string);
-  string loadFromFile(string);
+  // This method takes a string as input and creates a Queue from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Queue.
+  string createQueue(const string &);
+  // This method takes a filename as input and loads a Queue from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Queue.
+  string loadFromFile(const string &);
+  // This method removes the head node from the Queue and returns its data.
   string dequeue();
-  void enqueue(string, int, string, string, string, int);
-  void purge() { head = NULL; }; // remove all references of the Nodes in the Queue to then be deleted
-  // Accessor function
-  string displayAll();
-  string showHead();
-  string showTail();
-  // returns the state of the Deque
-  bool isEmpty() { return ((head == NULL) ? true : false); };
+  // This method creates a new node with the given data and inserts it at the head of the Queue.
+  void enqueue(const string &, int, const string &, const string &, const string &, int);
+  // This method removes all nodes from the Queue.
+  void purge() { head_ = NULL; };
+  // Accessor functions
+  // This method returns a string representation of the Queue, with each node's data separated by a newline character
+  string displayAll() const;
+  // This method returns the data of the head node without removing it.
+  string showHead() const;
+  // This method returns the data of the tail node without removing it.
+  string showTail() const;
+  // This method returns true if the Queue is empty, and false otherwise.
+  const bool isEmpty() const { return ((head_ == NULL) ? true : false); };
 };
 
-void Queue::enqueue(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
+void Queue::enqueue(const string &Month, int Year, const string &Artist, const string &SongTitle, const string &RecordLabel, int WeeksAtNumberOne)
 {
   // Create the new node with the data from the parameter list
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   // Case 1: If the queue is empty, add the node to the head of the
   // queue
-  if (head == NULL)
+  if (head_ == NULL)
   {
-    head = freshNode;
+    head_ = freshNode;
     return;
   }
   // Case 2: If the queue is not empty, add the fresh Node to the
   // end of the queue
-  Node *currentNode = head;
+  Node *currentNode = head_;
   // iterate through the Queue to reach the end of the Queue
-  for (; currentNode->getNext() != NULL; currentNode = currentNode->getNext())
+  for (; currentNode->get_next() != NULL; currentNode = currentNode->get_next())
     ;
   // add the Node to the end of the Queue
-  currentNode->setNext(freshNode);
+  currentNode->set_next(freshNode);
   return;
 };
 
 string Queue::dequeue()
 {
   // Case 1: If the queue is empty
-  if (head == NULL)
-    return "The Queue is empty!";
+  if (head_ == NULL)
+    return "The Queue is empty!!";
   // Case 2: If the queue has more than one Node remaining,
   // remove the head Node and move the next Node to the head
-  Node *ptrHead = head;
-  head = head->getNext();
+  Node *ptrHead = head_;
+  head_ = head_->get_next();
   // get the data from the head before the head is deleted
-  string str = ptrHead->getData();
+  string str = ptrHead->get_data();
   delete ptrHead;
   return (str);
 };
 
-string Queue::displayAll()
+string Queue::displayAll() const
 {
   // Case 1: If the queue is empty
-  if (head == NULL)
-    return "The Queue is empty!";
+  if (head_ == NULL)
+    return "The Queue is empty!!";
   // Case 2: If the queue is not empty, append all the data from
   // each Node in the queue to a string
   string str = "";
-  for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
+  for (Node *ptr = head_; ptr != NULL; ptr = ptr->get_next())
   {
     // append each data from each Node in the Queue to a single string
-    str.append(ptr->getData() + "\n");
+    str.append(ptr->get_data() + "\n");
   }
-  // return the data in the Priority Queue to be displayed
+  // return the data in the Queue to be displayed
   return (str);
 };
 
-string Queue::showHead()
+string Queue::showHead() const
 {
   // Case 1: If the queue is empty
-  if (head == NULL)
-    return ("The Queue is empty!");
+  if (head_ == NULL)
+    return ("The Queue is empty!!");
   // Case 2: If the queue is not empty, return
   // the data at the head of the queue
-  else
-    return (head->getData());
+  return (head_->get_data());
 };
 
-string Queue::showTail()
+string Queue::showTail() const
 {
   // Case 1: If the queue is empty
-  if (head == NULL)
-    return "The Priority Queue is empty!";
+  if (head_ == NULL)
+    return "The Queue is empty!!";
   // Case 2: If the queue is not empty,
   // iterate through the queue until we reach the end
   // and return the data at the end of the queue
-  Node *ptr = head;
-  for (; ptr->getNext() != NULL; ptr = ptr->getNext())
+  Node *ptr = head_;
+  for (; ptr->get_next() != NULL; ptr = ptr->get_next())
     ;
-  return (ptr->getData());
+  return (ptr->get_data());
 };
 
-string Queue::createQueue(string filePath)
+string Queue::createQueue(const string &filePath)
 {
-  // Case 1: If the Queue is not empty, purge the Queue
-  // and load all the data from the filePath to the Queue
-  if (!isEmpty())
-  {
-    // remove all Nodes from the Queue
-    purge();
-    return (loadFromFile(filePath));
-  }
-  // Case 2:  If the Queue is empty, load all the data
-  // from the filePath to the Queue
-  else
-    return (loadFromFile(filePath));
+  // Clear the Queue to prepare for loading new data
+  purge();
+  // Load all the data from the file to the Queue
+  return (loadFromFile(filePath));
 };
 
-string Queue::loadFromFile(string filePath)
+string Queue::loadFromFile(const string &filePath)
 {
   // create a file to read from
   ifstream file(filePath);
-  // defines all the fields in the file
-  string str;
-  string Month;
-  string Artist;
-  string SongTitle;
-  string RecordLabel;
-  char ch;
-  int Year;
-  int WeeksAtNumberOne;
-  // if the file is open by another resource or the file is not found
-  if (!file)
-  {
-    exit(EXIT_FAILURE);
+  if (!file.is_open()) // check if the file was opened successfully
     return ("The file can not be opened!!");
-  }
-  // reads the headings of the file
-  getline(file, str);
-  // iterate through each line and read each line from the file into a string
-  while (!file.eof() && getline(file, str))
+  // defines all the fields in the file
+  string header;
+  string newlinechar;
+  string month;
+  string artist;
+  string songtitle;
+  string recordLabel;
+  char separator;
+  int year;
+  int weeksatnumberone;
+  // Read the first line to skip the header
+  getline(file, header);
+  // iterate through each line and parse the fields from the file
+  while (getline(file, month, '*') &&
+         file >> year &&
+         file >> separator &&
+         getline(file, artist, '*') &&
+         getline(file, songtitle, '*') &&
+         getline(file, recordLabel, '*') &&
+         file >> weeksatnumberone && getline(file, newlinechar, '\n'))
   {
-    // create a stream to get all the fields from
-    stringstream line(str);
-    getline(line, Month, '*');
-    line >> Year;
-    line >> ch;
-    getline(line, Artist, '*');
-    getline(line, SongTitle, '*');
-    getline(line, RecordLabel, '*');
-    line >> WeeksAtNumberOne;
     // add the data to the Queue
-    enqueue(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
+    enqueue(month, year, artist, songtitle, recordLabel, weeksatnumberone);
   }
   // send a success message indicating that all the data was added to the Queue
   return ("The Queue was successfully created!!");

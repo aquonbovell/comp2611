@@ -2,7 +2,6 @@
 #define DEQUE_H
 #include "Node.h"
 #include <fstream>
-#include <sstream>
 #include <string>
 
 using namespace std;
@@ -19,13 +18,13 @@ public:
   Deque() : head_(NULL), tail_(NULL) {} // set the attributes to NULL
   // Mutator functions
   // This method takes a string as input and creates a deque from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the deque.
-  const string createDeque(const string &);
+  string createDeque(const string &);
   // This method takes a filename as input and loads a deque from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the deque.
-  const string loadFromFile(const string &);
+  string loadFromFile(const string &);
   // This method removes the head node from the deque and returns its data.
-  const string dequeueHead();
+  string dequeueHead();
   // This method removes the tail node from the deque and returns its data
-  const string dequeueTail();
+  string dequeueTail();
   // This method creates a new node with the given data and inserts it at the head of the deque.
   void enqueueHead(const string &, int, const string &, const string &, const string &, int);
   // This method creates a new node with the given data and inserts it at the tail of the deque.
@@ -38,11 +37,11 @@ public:
   };
   // Accessor functions
   // This method returns a string representation of the deque, with each node's data separated by a newline character
-  const string displayAll() const;
+  string displayAll() const;
   // This method returns the data of the head node without removing it.
-  const string showHead() const;
+  string showHead() const;
   // This method returns the data of the tail node without removing it.
-  const string showTail() const;
+  string showTail() const;
   // This method returns true if the deque is empty, and false otherwise.
   const bool isEmpty() const { return ((head_ == NULL || tail_ == NULL) ? true : false); };
 };
@@ -87,7 +86,7 @@ void Deque::enqueueTail(const string &Month, int Year, const string &Artist, con
   return;
 }
 
-const string Deque::dequeueHead()
+string Deque::dequeueHead()
 {
   // Case 1: If the deque is empty
   if (head_ == NULL || tail_ == NULL)
@@ -115,7 +114,7 @@ const string Deque::dequeueHead()
   return (str);
 }
 
-const string Deque::dequeueTail()
+string Deque::dequeueTail()
 {
   // Case 1: If the deque is empty
   if (tail_ == NULL || head_ == NULL)
@@ -149,7 +148,7 @@ const string Deque::dequeueTail()
   return (str);
 }
 
-const string Deque::displayAll() const
+string Deque::displayAll() const
 {
   // Case 1: If the deque is empty
   if (head_ == NULL || tail_ == NULL)
@@ -167,7 +166,7 @@ const string Deque::displayAll() const
   return (str);
 }
 
-const string Deque::showHead() const
+string Deque::showHead() const
 {
   // Case 1: If the deque is empty
   if (head_ == NULL)
@@ -177,7 +176,7 @@ const string Deque::showHead() const
   return (head_->get_data());
 }
 
-const string Deque::showTail() const
+string Deque::showTail() const
 {
   // Case 1: If the deque is empty
   if (tail_ == NULL)
@@ -187,63 +186,49 @@ const string Deque::showTail() const
   return (tail_->get_data());
 }
 
-const string Deque::createDeque(const string &filePath)
+string Deque::createDeque(const string &filePath)
 {
-  // Case 1: If the Deque is not empty, purge the Deque
-  // and load all the data from the filePath to the Deque
-  if (!isEmpty())
-  {
-    // remove all Nodes from the Deque
-    purge();
-    return (loadFromFile(filePath));
-  }
-  // Case 2:  If the Deque is empty, load all the data
-  // from the filePath to the Deque
+  // Clear the deque to prepare for loading new data
+  purge();
+  // Load all the data from the file to the deque
   return (loadFromFile(filePath));
 }
 
-const string Deque::loadFromFile(const string &filePath)
+string Deque::loadFromFile(const string &filePath)
 {
+  // create a file to read from
   ifstream file(filePath);
   if (!file.is_open()) // check if the file was opened successfully
-    return ("The file could not be opened.");
-  string str;
+    return ("The file can not be opened!!");
+  // defines all the fields in the file
+  string header;
+  string newlinechar;
   string month;
   string artist;
-  string songTitle;
+  string songtitle;
   string recordLabel;
   char separator;
-  char newline;
   int year;
-  int weeksAtNumberOne;
+  int weeksatnumberone;
   // Read the first line to skip the header
-  // getline(file, month);
-  // Read each line of the file
-  // reads the headings of the file
-  getline(file, str);
-  // iterate through each line and read each line from the file into a string
-  while (getline(file, month, '*') && file >> year && file >> separator && getline(file, artist, '*') &&
-         getline(file, songTitle, '*') &&
+  getline(file, header);
+  // iterate through each line and parse the fields from the file
+  while (getline(file, month, '*') &&
+         file >> year &&
+         file >> separator &&
+         getline(file, artist, '*') &&
+         getline(file, songtitle, '*') &&
          getline(file, recordLabel, '*') &&
-         file >> weeksAtNumberOne && getline(file, separator))
+         file >> weeksatnumberone && getline(file, newlinechar, '\n'))
   {
-    // create a stream to get all the fields from
-    // stringstream line(str);
-    // getline(file, month, '*');
-    // file >> year;
-    // file >> separator;
-    // getline(file, artist, '*');
-    // getline(file, songTitle, '*');
-    // getline(file, recordLabel, '*');
-    // file >> weeksAtNumberOne;
-    // Add the data to the deque based on the year
+    // add the data to the Deque if within range
     if (year >= 1995 && year <= 1999)
-      enqueueHead(month, year, artist, songTitle, recordLabel, weeksAtNumberOne);
+      enqueueHead(month, year, artist, songtitle, recordLabel, weeksatnumberone);
+    // add the data to the Deque if within range
     else if (year >= 1990 && year <= 1994)
-      enqueueTail(month, year, artist, songTitle, recordLabel, weeksAtNumberOne);
+      enqueueHead(month, year, artist, songtitle, recordLabel, weeksatnumberone);
   }
-  // Close the file
-  file.close();
-  return ("The Deque was successfully created!");
+  // send a success message indicating that all the data was added to the Deque
+  return ("The Deque was successfully created!!");
 }
 #endif
