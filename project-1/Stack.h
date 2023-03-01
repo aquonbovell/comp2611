@@ -18,22 +18,22 @@ public:
   // Mutator functions
   // Mutator functions
   // This method takes a string as input and creates a Stack from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Stack.
-  string createStack(const string &);
+  const string createStack(const string &);
   // This method takes a filename as input and loads a Stack from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Stack.
-  string loadFromFile(const string &);
+  const string loadFromFile(const string &);
   // This method removes the head node from the Stack and returns its data.
-  string pop();
+  const string pop();
   // This method creates a new node with the given data and inserts it at the head of the Stack.
   void push(const string &, int, const string &, const string &, const string &, int);
   // This method removes all nodes from the Stack.
   void purge() { head_ = NULL; };
   // Accessor functions
   // This method returns a string representation of the Stack, with each node's data separated by a newline character
-  string displayAll() const;
+  const string displayAll() const;
   // This method returns the data of the head node without removing it.
-  string showHead() const;
+  const string showHead() const;
   // This method returns the data of the tail node without removing it.
-  string showTail() const;
+  const string showTail() const;
   // This method returns true if the Stack is empty, and false otherwise.
   const bool isEmpty() const { return ((head_ == NULL) ? true : false); };
 };
@@ -57,7 +57,7 @@ void Stack::push(const string &Month, int Year, const string &Artist, const stri
   return;
 };
 
-string Stack::pop()
+const string Stack::pop()
 {
   // Case 1: If the stack is empty
   if (head_ == NULL)
@@ -73,7 +73,7 @@ string Stack::pop()
   return (str);
 };
 
-string Stack::displayAll() const
+const string Stack::displayAll() const
 {
   // Case 1: If the stack is empty
   if (head_ == NULL)
@@ -89,7 +89,7 @@ string Stack::displayAll() const
   return (str);
 };
 
-string Stack::showHead() const
+const string Stack::showHead() const
 {
   // Case 1: If the stack is empty
   if (head_ == NULL)
@@ -99,7 +99,7 @@ string Stack::showHead() const
   return (head_->get_data());
 };
 
-string Stack::showTail() const
+const string Stack::showTail() const
 {
   // Case 1: If the stack is empty
   if (head_ == NULL)
@@ -113,7 +113,7 @@ string Stack::showTail() const
   return (ptr->get_data());
 };
 
-string Stack::loadFromFile(const string &filePath)
+const string Stack::loadFromFile(const string &filePath)
 {
   // create a file to read from
   ifstream file(filePath);
@@ -147,7 +147,7 @@ string Stack::loadFromFile(const string &filePath)
   return ("The Stack was successfully created!!");
 };
 
-string Stack::createStack(const string &filePath)
+const string Stack::createStack(const string &filePath)
 {
   // Clear the Stack to prepare for loading new data
   purge();

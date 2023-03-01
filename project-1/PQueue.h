@@ -17,22 +17,22 @@ public:
   PriorityQueue() : head_(NULL) {} // set the attribute to NULL
   // Mutator functions
   // This method takes a string as input and creates a Priority Queue from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Priority Queue.
-  string createPriorityQueue(const string &);
+  const string createPriorityQueue(const string &);
   // This method takes a filename as input and loads a Priority Queue from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Priority Queue.
-  string loadFromFile(const string &);
+  const string loadFromFile(const string &);
   // This method removes the head node from the Priority Queue and returns its data.
-  string dequeue();
+  const string dequeue();
   // This method creates a new node with the given data and inserts it at the head of the Priority Queue.
   void insert(const string &, int, const string &, const string &, const string &, int);
   // This method removes all nodes from the Priority Queue.
   void purge() { head_ = NULL; };
   // Accessor functions
   // This method returns a string representation of the Priority Queue, with each node's data separated by a newline character
-  string displayAll() const;
+  const string displayAll() const;
   // This method returns the data of the head node without removing it.
-  string showHead() const;
+  const string showHead() const;
   // This method returns the data of the tail node without removing it.
-  string showTail() const;
+  const string showTail() const;
   // This method returns true if the Priority Queue is empty, and false otherwise.
   const bool isEmpty() const { return ((head_ == NULL) ? true : false); };
 };
@@ -79,7 +79,7 @@ void PriorityQueue::insert(const string &Month, int Year, const string &Artist, 
   return;
 };
 
-string PriorityQueue::dequeue()
+const string PriorityQueue::dequeue()
 {
   // Case 1: If the priority queue is empty
   if (head_ == NULL)
@@ -94,7 +94,7 @@ string PriorityQueue::dequeue()
   return (str);
 };
 
-string PriorityQueue::displayAll() const
+const string PriorityQueue::displayAll() const
 {
   // Case 1: If the priority queue is empty
   if (head_ == NULL)
@@ -111,7 +111,7 @@ string PriorityQueue::displayAll() const
   return (str);
 };
 
-string PriorityQueue::showHead() const
+const string PriorityQueue::showHead() const
 {
   // Case 1: If the priority queue is empty
   if (head_ == NULL)
@@ -121,7 +121,7 @@ string PriorityQueue::showHead() const
   return (head_->get_data());
 };
 
-string PriorityQueue::showTail() const
+const string PriorityQueue::showTail() const
 {
   // Case 1: If the priority queue is empty, return
   // the data at the tail
@@ -137,7 +137,7 @@ string PriorityQueue::showTail() const
   return (ptr->get_data());
 };
 
-string PriorityQueue::createPriorityQueue(const string &filePath)
+const string PriorityQueue::createPriorityQueue(const string &filePath)
 {
   // Clear the Priority Queue to prepare for loading new data
   purge();
@@ -145,7 +145,7 @@ string PriorityQueue::createPriorityQueue(const string &filePath)
   return (loadFromFile(filePath));
 };
 
-string PriorityQueue::loadFromFile(const string &filePath)
+const string PriorityQueue::loadFromFile(const string &filePath)
 {
   // create a file to read from
   ifstream file(filePath);

@@ -18,13 +18,13 @@ public:
   Deque() : head_(NULL), tail_(NULL) {} // set the attributes to NULL
   // Mutator functions
   // This method takes a string as input and creates a deque from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the deque.
-  string createDeque(const string &);
+  const string createDeque(const string &);
   // This method takes a filename as input and loads a deque from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the deque.
-  string loadFromFile(const string &);
+  const string loadFromFile(const string &);
   // This method removes the head node from the deque and returns its data.
-  string dequeueHead();
+  const string dequeueHead();
   // This method removes the tail node from the deque and returns its data
-  string dequeueTail();
+  const string dequeueTail();
   // This method creates a new node with the given data and inserts it at the head of the deque.
   void enqueueHead(const string &, int, const string &, const string &, const string &, int);
   // This method creates a new node with the given data and inserts it at the tail of the deque.
@@ -37,11 +37,11 @@ public:
   };
   // Accessor functions
   // This method returns a string representation of the deque, with each node's data separated by a newline character
-  string displayAll() const;
+  const string displayAll() const;
   // This method returns the data of the head node without removing it.
-  string showHead() const;
+  const string showHead() const;
   // This method returns the data of the tail node without removing it.
-  string showTail() const;
+  const string showTail() const;
   // This method returns true if the deque is empty, and false otherwise.
   const bool isEmpty() const { return ((head_ == NULL || tail_ == NULL) ? true : false); };
 };
@@ -86,7 +86,7 @@ void Deque::enqueueTail(const string &Month, int Year, const string &Artist, con
   return;
 }
 
-string Deque::dequeueHead()
+const string Deque::dequeueHead()
 {
   // Case 1: If the deque is empty
   if (head_ == NULL || tail_ == NULL)
@@ -114,7 +114,7 @@ string Deque::dequeueHead()
   return (str);
 }
 
-string Deque::dequeueTail()
+const string Deque::dequeueTail()
 {
   // Case 1: If the deque is empty
   if (tail_ == NULL || head_ == NULL)
@@ -148,7 +148,7 @@ string Deque::dequeueTail()
   return (str);
 }
 
-string Deque::displayAll() const
+const string Deque::displayAll() const
 {
   // Case 1: If the deque is empty
   if (head_ == NULL || tail_ == NULL)
@@ -166,7 +166,7 @@ string Deque::displayAll() const
   return (str);
 }
 
-string Deque::showHead() const
+const string Deque::showHead() const
 {
   // Case 1: If the deque is empty
   if (head_ == NULL)
@@ -176,7 +176,7 @@ string Deque::showHead() const
   return (head_->get_data());
 }
 
-string Deque::showTail() const
+const string Deque::showTail() const
 {
   // Case 1: If the deque is empty
   if (tail_ == NULL)
@@ -186,7 +186,7 @@ string Deque::showTail() const
   return (tail_->get_data());
 }
 
-string Deque::createDeque(const string &filePath)
+const string Deque::createDeque(const string &filePath)
 {
   // Clear the deque to prepare for loading new data
   purge();
@@ -194,7 +194,7 @@ string Deque::createDeque(const string &filePath)
   return (loadFromFile(filePath));
 }
 
-string Deque::loadFromFile(const string &filePath)
+const string Deque::loadFromFile(const string &filePath)
 {
   // create a file to read from
   ifstream file(filePath);

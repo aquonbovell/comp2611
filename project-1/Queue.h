@@ -17,22 +17,22 @@ public:
   Queue() : head_(NULL) {} // set the attribute to NULL
   // Mutator functions
   // This method takes a string as input and creates a Queue from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Queue.
-  string createQueue(const string &);
+  const string createQueue(const string &);
   // This method takes a filename as input and loads a Queue from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Queue.
-  string loadFromFile(const string &);
+  const string loadFromFile(const string &);
   // This method removes the head node from the Queue and returns its data.
-  string dequeue();
+  const string dequeue();
   // This method creates a new node with the given data and inserts it at the head of the Queue.
   void enqueue(const string &, int, const string &, const string &, const string &, int);
   // This method removes all nodes from the Queue.
   void purge() { head_ = NULL; };
   // Accessor functions
   // This method returns a string representation of the Queue, with each node's data separated by a newline character
-  string displayAll() const;
+  const string displayAll() const;
   // This method returns the data of the head node without removing it.
-  string showHead() const;
+  const string showHead() const;
   // This method returns the data of the tail node without removing it.
-  string showTail() const;
+  const string showTail() const;
   // This method returns true if the Queue is empty, and false otherwise.
   const bool isEmpty() const { return ((head_ == NULL) ? true : false); };
 };
@@ -59,7 +59,7 @@ void Queue::enqueue(const string &Month, int Year, const string &Artist, const s
   return;
 };
 
-string Queue::dequeue()
+const string Queue::dequeue()
 {
   // Case 1: If the queue is empty
   if (head_ == NULL)
@@ -74,7 +74,7 @@ string Queue::dequeue()
   return (str);
 };
 
-string Queue::displayAll() const
+const string Queue::displayAll() const
 {
   // Case 1: If the queue is empty
   if (head_ == NULL)
@@ -91,17 +91,17 @@ string Queue::displayAll() const
   return (str);
 };
 
-string Queue::showHead() const
+const string  Queue::showHead() const
 {
   // Case 1: If the queue is empty
   if (head_ == NULL)
     return ("The Queue is empty!!");
   // Case 2: If the queue is not empty, return
   // the data at the head of the queue
-  return (head_->get_data());
+    return (head_->get_data());
 };
 
-string Queue::showTail() const
+const string Queue::showTail() const
 {
   // Case 1: If the queue is empty
   if (head_ == NULL)
@@ -115,7 +115,7 @@ string Queue::showTail() const
   return (ptr->get_data());
 };
 
-string Queue::createQueue(const string &filePath)
+const string Queue::createQueue(const string & filePath)
 {
   // Clear the Queue to prepare for loading new data
   purge();
@@ -123,9 +123,9 @@ string Queue::createQueue(const string &filePath)
   return (loadFromFile(filePath));
 };
 
-string Queue::loadFromFile(const string &filePath)
+const string Queue::loadFromFile(const string & filePath)
 {
-  // create a file to read from
+// create a file to read from
   ifstream file(filePath);
   if (!file.is_open()) // check if the file was opened successfully
     return ("The file can not be opened!!");
