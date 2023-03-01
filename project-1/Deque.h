@@ -4,8 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-using std::string;
-using std::to_string, std::ifstream, std::stringstream, std::getline;
+
+using namespace std;
 
 class Deque
 {
@@ -27,12 +27,12 @@ public:
   string dequeueTail();
   void enqueueHead(string, int, string, string, string, int);
   void enqueueTail(string, int, string, string, string, int);
-  void purge();
+  void purge() { head = NULL; tail = NULL; };
   // Accessor function
   string displayAll();
   string showHead();
   string showTail();
-  bool isEmpty();
+  bool isEmpty(){ return ((head == NULL || tail == NULL) ? true : false); };
 };
 
 void Deque::enqueueHead(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
@@ -53,7 +53,7 @@ void Deque::enqueueHead(string Month, int Year, string Artist, string SongTitle,
   head = freshNode;
   head->setNext(previousHead);
   return;
-};
+}
 
 void Deque::enqueueTail(string Month, int Year, string Artist, string SongTitle, string RecordLabel, int WeeksAtNumberOne)
 {
@@ -73,7 +73,7 @@ void Deque::enqueueTail(string Month, int Year, string Artist, string SongTitle,
   tail = freshNode;
   previousTail->setNext(tail);
   return;
-};
+}
 
 string Deque::dequeueHead()
 {
@@ -98,13 +98,13 @@ string Deque::dequeueHead()
   string str = ptrHead->getData();
   delete ptrHead;
   return (str);
-};
+}
 
 string Deque::dequeueTail()
 {
   // Case 1: If the deque is empty
   if (tail == NULL || head == NULL)
-    return "The Deque is empty";
+    return "The Deque is empty!";
   // Case 2: If the deque has only one Node remaining, remove
   // the Node and set both the head and tail attribute to NULL
   if (tail == head)
@@ -127,7 +127,7 @@ string Deque::dequeueTail()
   string str = ptrTail->getData();
   delete ptrTail;
   return (str);
-};
+}
 
 string Deque::displayAll()
 {
@@ -137,13 +137,8 @@ string Deque::displayAll()
   // Case1: If the deque is not empty, append all the data
   // from each Node in the deque to a string
   string str = "";
-  for (Node *ptr = head; ptr != NULL; ptr = ptr->getNext())
-  {
-    str.append(ptr->getData());
-    str.append("\n");
-  }
   return (str);
-};
+}
 
 string Deque::showHead()
 {
@@ -154,7 +149,7 @@ string Deque::showHead()
     // Case 2: If the deque is not empty, return the data
     // at the head
     return (head->getData());
-};
+}
 
 string Deque::showTail()
 {
@@ -164,7 +159,7 @@ string Deque::showTail()
   // Case 2: If the deque is not empty, return the data
   // at the tail
   return (tail->getData());
-};
+}
 
 string Deque::createDeque(string filePath)
 {
@@ -175,7 +170,7 @@ string Deque::createDeque(string filePath)
   }
   else
     return (loadFromFile(filePath));
-};
+}
 
 string Deque::loadFromFile(string filePath)
 {
@@ -213,18 +208,5 @@ string Deque::loadFromFile(string filePath)
       enqueueTail(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
   }
   return ("The Deque was successfully created!!");
-};
-
-bool Deque::isEmpty()
-{
-  return ((head == NULL || tail == NULL) ? true : false);
-};
-
-void Deque::purge()
-{
-  while (head != NULL)
-  {
-    dequeueHead();
-  }
-};
+}
 #endif

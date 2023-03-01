@@ -4,7 +4,11 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-using std::string, std::to_string, std::ifstream, std::stringstream, std::getline;
+using std::string;
+using std::to_string;
+using std::ifstream;
+using std::stringstream;
+using std::getline;
 
 class Queue
 {
