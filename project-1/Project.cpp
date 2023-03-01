@@ -231,7 +231,7 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   menuDeque->Append(ID_DequeueHeadDeque, wxT("Dequeue Head"), wxT("Dequeue the first item from the Deque"));
   menuDeque->Append(ID_DequeueTailDeque, wxT("Dequeue Tail"), wxT("Dequeue the last item from the Deque"));
   // Append the sub-menu items to the Queue Main Menu item
-  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create PQueue"), wxT("Create a Priority Queue"));
+  menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create Priority Queue"), wxT("Create a Priority Queue"));
   menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("Display All"), wxT("Display contents of the Priority Queue"));
   menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show Head"), wxT("Show the first item of the Priority Queue"));
   menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show Tail"), wxT("Show the last item of the Priority Queue"));
@@ -309,8 +309,6 @@ void ProjectFrame::OnOpenFile(wxCommandEvent &event)
     filenameTextBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
     MainEditBox->LoadFile(CurrentDocPath); // Opens that file in the MainEditBox
-    // Set the Title
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -332,8 +330,6 @@ void ProjectFrame::OnSaveAs(wxCommandEvent &event)
     wxString SavePath = SaveDialog->GetPath();
     // set the path of our current document to the file the user chose to save under
     MainEditBox->SaveFile(SavePath); // Save the file to the selected path
-    // Set the Title to reflect the file open
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
@@ -350,6 +346,7 @@ void ProjectFrame::OnDisplay(wxCommandEvent &event)
 
 void ProjectFrame::OnExit(wxCommandEvent &event)
 {
+  // Present a GoodBye message and close the program
   wxMessageBox(wxT("Good-bye!"), wxT("Exit"), wxOK | wxICON_INFORMATION, this);
   Close(TRUE); // Close the window
 };
@@ -368,7 +365,7 @@ void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
-    // Add the data to the Queue
+    // Add the data to the Queue from the file opened and grab the resulting message
     string value = q->createQueue(string(CurrentDocPath));
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
@@ -376,13 +373,12 @@ void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
     filenameTextBox->AppendText(CurrentDocPath);
     wxString wxValue(value.c_str(), wxConvUTF8);
     MainEditBox->AppendText(wxValue); // Loads the contents of the Queue into the MainEditBox
-    // Set the Title
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
 void ProjectFrame::OnShowHeadQueue(wxCommandEvent &event)
 {
+  // grabs the data from the showHead operation from the Queue
   string value = q->showHead();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -392,6 +388,7 @@ void ProjectFrame::OnShowHeadQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnShowTailQueue(wxCommandEvent &event)
 {
+  // grabs the data from the showTail operation from the Queue
   string value = q->showTail();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -401,6 +398,7 @@ void ProjectFrame::OnShowTailQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDisplayAllQueue(wxCommandEvent &event)
 {
+  // grabs the data from the displayAll operation from the Queue
   string records = q->displayAll();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -410,6 +408,7 @@ void ProjectFrame::OnDisplayAllQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueQueue(wxCommandEvent &)
 {
+  // grabs the data from the dequeue operation from the Queue
   string records = q->dequeue();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -431,8 +430,8 @@ void ProjectFrame::OnCreateDeque(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
-    d->createDeque(string(CurrentDocPath)); // Add the data to the Queue
-    string value = d->displayAll();
+    // Add the data to the Deque from the file opened and grab the resulting message
+    string value = d->createDeque(string(CurrentDocPath));
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
     MainEditBox->Clear();
@@ -440,13 +439,12 @@ void ProjectFrame::OnCreateDeque(wxCommandEvent &event)
     // Display the string in the MainEditBox
     wxString wxValue(value.c_str(), wxConvUTF8);
     MainEditBox->AppendText(wxValue);
-    // Set the Title
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
 void ProjectFrame::OnShowHeadDeque(wxCommandEvent &event)
 {
+  // grabs the data from the showHead operation from the Deque
   string value = d->showHead();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -456,6 +454,7 @@ void ProjectFrame::OnShowHeadDeque(wxCommandEvent &event)
 
 void ProjectFrame::OnShowTailDeque(wxCommandEvent &event)
 {
+  // grabs the data from the showTail operation from the Deque
   string value = d->showTail();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -465,6 +464,7 @@ void ProjectFrame::OnShowTailDeque(wxCommandEvent &event)
 
 void ProjectFrame::OnDisplayAllDeque(wxCommandEvent &event)
 {
+  // grabs the data from the displayAll operation from the Deque
   string records = d->displayAll();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -474,6 +474,7 @@ void ProjectFrame::OnDisplayAllDeque(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeueHeadDeque(wxCommandEvent &)
 {
+  // grabs the data from the dequeueHead operation from the Deque
   string records = d->dequeueHead();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -483,6 +484,7 @@ void ProjectFrame::OnDequeueHeadDeque(wxCommandEvent &)
 
 void ProjectFrame::OnDequeueTailDeque(wxCommandEvent &)
 {
+  // grabs the data from the dequeueTail operation from the Deque
   string records = d->dequeueTail();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -504,8 +506,8 @@ void ProjectFrame::OnCreatePriorityQueue(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
-    pq->createPriorityQueue(string(CurrentDocPath)); // Add the data to the PriorityQueue
-    string value = pq->displayAll();
+    // Add the data to the Priority Queue from the file opened and grab the resulting message
+    string value = pq->createPriorityQueue(string(CurrentDocPath));
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
     MainEditBox->Clear();
@@ -513,13 +515,12 @@ void ProjectFrame::OnCreatePriorityQueue(wxCommandEvent &event)
     // Display the string in the MainEditBox
     wxString wxValue(value.c_str(), wxConvUTF8);
     MainEditBox->AppendText(wxValue);
-    // Set the Title
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
 void ProjectFrame::OnShowHeadPriorityQueue(wxCommandEvent &event)
 {
+  // grabs the data from the showHead operation from the Priority Queue
   string value = pq->showHead();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -529,6 +530,7 @@ void ProjectFrame::OnShowHeadPriorityQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnShowTailPriorityQueue(wxCommandEvent &event)
 {
+  // grabs the data from the showTail operation from the Priority Queue
   string value = pq->showTail();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -538,6 +540,7 @@ void ProjectFrame::OnShowTailPriorityQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDisplayAllPriorityQueue(wxCommandEvent &event)
 {
+  // grabs the data from the displayAll operation from the Priority Queue
   string records = pq->displayAll();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -547,6 +550,7 @@ void ProjectFrame::OnDisplayAllPriorityQueue(wxCommandEvent &event)
 
 void ProjectFrame::OnDequeuePriorityQueue(wxCommandEvent &)
 {
+  // grabs the data from the dequeue operation from the Priority Queue
   string records = pq->dequeue();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -568,8 +572,8 @@ void ProjectFrame::OnCreateStack(wxCommandEvent &event)
   {
     // Sets our current document to the file the user selected
     CurrentDocPath = OpenDialog->GetPath();
-    s->createStack(string(CurrentDocPath)); // Add the data to the Stack
-    string value = s->displayAll();
+    // Add the data to the Stack from the file opened and grab the resulting message
+    string value = s->createStack(string(CurrentDocPath));
     // Clean up filename textbox and Display file name in filename textbox
     filenameTextBox->Clear();
     MainEditBox->Clear();
@@ -577,13 +581,12 @@ void ProjectFrame::OnCreateStack(wxCommandEvent &event)
     // Display the string in the MainEditBox
     wxString wxValue(value.c_str(), wxConvUTF8);
     MainEditBox->AppendText(wxValue);
-    // Set the Title
-    // SetTitle(wxString(wxT("COMP2611 - Data Structures : 417002714")));
   }
 };
 
 void ProjectFrame::OnShowHeadStack(wxCommandEvent &event)
 {
+  // grabs the data from the showHead operation from the Stack
   string value = s->showHead();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -593,6 +596,7 @@ void ProjectFrame::OnShowHeadStack(wxCommandEvent &event)
 
 void ProjectFrame::OnShowTailStack(wxCommandEvent &event)
 {
+  // grabs the data from the showTail operation from the Stack
   string value = s->showTail();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -602,6 +606,7 @@ void ProjectFrame::OnShowTailStack(wxCommandEvent &event)
 
 void ProjectFrame::OnDisplayAllStack(wxCommandEvent &event)
 {
+  // grabs the data from the displayAll operation from the Stack
   string records = s->displayAll();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -611,6 +616,7 @@ void ProjectFrame::OnDisplayAllStack(wxCommandEvent &event)
 
 void ProjectFrame::OnPopStack(wxCommandEvent &)
 {
+  // grabs the data from the pop operation from the Stack
   string records = s->pop();
   MainEditBox->Clear();
   // Display the string in the MainEditBox
@@ -623,7 +629,11 @@ void ProjectFrame::OnPopStack(wxCommandEvent &)
 //===================================================================================
 void ProjectFrame::OnAbout(wxCommandEvent &)
 {
-  string text = "Name: Aquon Bovell\nMajor: Computer Science and Mathematics\nLevel: II\nSkills: Java, Python, C++, HTML, CSS, JavaScript\nExperience: Completed several programming projects, including a website for a local business and a mobile app for a hypothetical non-profit organization\nRole in Project: Lead Programmer\nAvailability: Available for group meetings after 12pm on Thursdays and weekends\nDescription: This program is designed to help the user to understand and appreciate the various types of Linear Abstract Data Types (ADTs). It allows the user to load data from a file into any Linear ADT, display the contents of any Linear ADT and remove records from the Linear ABTs. The program also provides support for any file format for compatability across the board.\nTechnologies Used: C++ Language, wxWidgets\nFeatures:\n\tAdd and/or remove data to/from the Linear ADTs\n\tView data from each Linear ADTs\n\tSave and/or load data for future use\nUser Interface: The program uses a graphical user interface created using wxWidgets. It features a menu bar with options to add, remove, and view from the individual Linear ADTs as well as save/load data to/from files.\nArchitecture: OpenSUSE 15.4 is based on the latest Linux kernel, version 5.3. It uses the Xfce 4.14 desktop environment by default, with other options available. The package management system is based on the RPM format and uses the zypper utility. OpenSUSE 15.4 also features support for containerization and virtualization technologies such as Docker and KVM.";
+  // define the information for the user to read and to know what the program
+  // consists of, how to use the program and libraries used
+  string text = "Name: Aquon Bovell\nMajor: Computer Science and Mathematics\nLevel: II\nSkills: Java, Python, C++, HTML, CSS, JavaScript\nExperience: Completed several programming projects, including a website for a local business and a mobile app for a hypothetical non-profit organization\nRole in Project: Lead Programmer\nAvailability: Available for group meetings after 12pm on Thursdays and weekends\nDescription: This program is designed to help the user to understand and appreciate the various types of Linear Abstract Data Types (ADTs). It allows the user to load data from a file into any Linear ADT, display the contents of any Linear ADT and remove records from the Linear ABTs. The program also provides support for any file format for compatability across the board.\nTechnologies Used: C++ Language, wxWidgets(3.1.5) , Linux (OpenSuse 15.4) \nFeatures:\n\tAdd and/or remove data to/from the Linear ADTs\n\tView data from each Linear ADTs\n\tSave and/or load data for future use\nUser Interface: The program uses a graphical user interface created using wxWidgets. It features a menu bar with options to add, remove, and view from the individual Linear ADTs as well as save/load data to/from files.\nArchitecture: OpenSUSE 15.4 is based on the latest Linux kernel, version 5.3. It uses the Xfce 4.14 desktop environment by default, with other options available. The package management system is based on the RPM format and uses the zypper utility. OpenSUSE 15.4 also features support for containerization and virtualization technologies such as Docker and KVM.";
   wxString wxText(text.c_str(), wxConvUTF8);
-  wxMessageBox(wxText, wxT("About"), wxOK | wxICON_INFORMATION, this);
+  // Display the string in the MainEditBox
+  MainEditBox->Clear();
+  MainEditBox->AppendText(wxText);
 };
