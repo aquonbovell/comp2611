@@ -1,16 +1,12 @@
 // ==================================================================================
 //
-//
 //  Project-01.cpp
-//  COMP2611 - Project #1
+//  COMP2611 - Project #1 - 417002714
 //
-//  Created by Aquon Bovell on 02/15/2023.
-//
+//  Created by Aquon Bovell on 02/15/2023
+//  © 2023 Aquon Bovell. All rights reserved
 //
 // ==================================================================================
-/************************************************************************************
-  Step 1: Always include the header file wx.h
-*************************************************************************************/
 #include <wx/wxprec.h>
 
 #ifndef WX_PRECOMP
@@ -23,29 +19,21 @@
 #include "PQueue.h"
 #include "Stack.h"
 
-// Global pointers for the ADT containers
+// Global pointers for all the ADT containers
 Queue *q = new Queue();
 Deque *d = new Deque();
 PriorityQueue *pq = new PriorityQueue();
 Stack *s = new Stack();
 
-/************************************************************************************
-*************************************************************************************
-  Step 2: Name an inherited application class from wxApp and declare it
-          with the function to execute the program
-*************************************************************************************
-*************************************************************************************/
+// Name an inherited application class from wxApp and declare it
+// with the function to execute the program
 class ProjectApp : public wxApp
 {
   virtual bool OnInit();
 };
 
-/************************************************************************************
-*************************************************************************************
-  Step 3: Declare the inherited main frame class from wxFrame. In this class
-          also will ALL the events handlers be declared
-*************************************************************************************
-*************************************************************************************/
+// Declare the inherited main frame class from wxFrame. In this class
+// also will ALL the events handlers be declared
 class ProjectFrame : public wxFrame
 {
 private:
@@ -59,12 +47,14 @@ public:
   void OnSave(wxCommandEvent &event);
   void OnSaveAs(wxCommandEvent &event);
   void OnExit(wxCommandEvent &event); // handle for Quit function
+
   // Functions for Queue Menu Items
   void OnCreateQueue(wxCommandEvent &event);
   void OnDisplayAllQueue(wxCommandEvent &event);
   void OnShowHeadQueue(wxCommandEvent &event);
   void OnShowTailQueue(wxCommandEvent &event);
   void OnDequeueQueue(wxCommandEvent &event);
+
   // Functions for Deque Menu Items
   void OnCreateDeque(wxCommandEvent &event);
   void OnDisplayAllDeque(wxCommandEvent &event);
@@ -72,31 +62,31 @@ public:
   void OnShowTailDeque(wxCommandEvent &event);
   void OnDequeueHeadDeque(wxCommandEvent &event);
   void OnDequeueTailDeque(wxCommandEvent &event);
+
   // Functions for Priority Queue Menu Items
   void OnCreatePriorityQueue(wxCommandEvent &event);
   void OnDisplayAllPriorityQueue(wxCommandEvent &event);
   void OnShowHeadPriorityQueue(wxCommandEvent &event);
   void OnShowTailPriorityQueue(wxCommandEvent &event);
   void OnDequeuePriorityQueue(wxCommandEvent &event);
+
   // Functions for Stack Menu Items
   void OnCreateStack(wxCommandEvent &event);
   void OnDisplayAllStack(wxCommandEvent &event);
   void OnShowHeadStack(wxCommandEvent &event);
   void OnShowTailStack(wxCommandEvent &event);
   void OnPopStack(wxCommandEvent &event);
+
   // Functions for Help Menu Item
   void OnAbout(wxCommandEvent &event);
+
   // Public attributes
   wxTextCtrl *MainEditBox;
   wxTextCtrl *filenameTextBox;
   wxString CurrentDocPath; // The Path to the file we have open
 };
 
-/************************************************************************************
-*************************************************************************************
-  Step 4. Declare the compiler directives
-*************************************************************************************
-*************************************************************************************/
+// Declare the compiler directives
 DECLARE_APP(ProjectApp)   // Declare Application class
 IMPLEMENT_APP(ProjectApp) // Create Application class object
 
@@ -108,22 +98,26 @@ enum
   ID_Save,
   ID_SaveAs,
   ID_Exit,
+  // Queue menu items
   ID_CreateQueue,
   ID_DisplayAllQueue,
   ID_ShowHeadQueue,
   ID_ShowTailQueue,
   ID_DequeueQueue,
+  // Deque menu items
   ID_CreateDeque,
   ID_DisplayAllDeque,
   ID_ShowHeadDeque,
   ID_ShowTailDeque,
   ID_DequeueHeadDeque,
   ID_DequeueTailDeque,
+  // Priority Queue menu items
   ID_CreatePriorityQueue,
   ID_DisplayAllPriorityQueue,
   ID_ShowHeadPriorityQueue,
   ID_ShowTailPriorityQueue,
   ID_DequeuePriorityQueue,
+  // Stack menu items
   ID_CreateStack,
   ID_DisplayAllStack,
   ID_ShowHeadStack,
@@ -133,46 +127,42 @@ enum
 
 BEGIN_EVENT_TABLE(ProjectFrame, wxFrame)
 // Events for the "File" menu items
-EVT_MENU(ID_OpenFile, ProjectFrame::OnOpenFile) // File Menu
-EVT_MENU(ID_Display, ProjectFrame::OnDisplay)
-EVT_MENU(ID_Save, ProjectFrame::OnSave)
-EVT_MENU(ID_SaveAs, ProjectFrame::OnSaveAs)
-EVT_MENU(ID_Exit, ProjectFrame::OnExit)
+EVT_MENU(ID_OpenFile, ProjectFrame::OnOpenFile) // File Menu Open
+EVT_MENU(ID_Display, ProjectFrame::OnDisplay)   // File Menu Display
+EVT_MENU(ID_Save, ProjectFrame::OnSave)         // File Menu Save
+EVT_MENU(ID_SaveAs, ProjectFrame::OnSaveAs)     // File Menu Save As
+EVT_MENU(ID_Exit, ProjectFrame::OnExit)         // File Menu Exit
 // Events for the Queue
-EVT_MENU(ID_CreateQueue, ProjectFrame::OnCreateQueue)
-EVT_MENU(ID_DisplayAllQueue, ProjectFrame::OnDisplayAllQueue)
-EVT_MENU(ID_ShowHeadQueue, ProjectFrame::OnShowHeadQueue)
-EVT_MENU(ID_ShowTailQueue, ProjectFrame::OnShowTailQueue)
-EVT_MENU(ID_DequeueQueue, ProjectFrame::OnDequeueQueue)
+EVT_MENU(ID_CreateQueue, ProjectFrame::OnCreateQueue)         // Queue Menu Create Queue
+EVT_MENU(ID_DisplayAllQueue, ProjectFrame::OnDisplayAllQueue) // Queue Menu Display All
+EVT_MENU(ID_ShowHeadQueue, ProjectFrame::OnShowHeadQueue)     // Queue Menu Show Head
+EVT_MENU(ID_ShowTailQueue, ProjectFrame::OnShowTailQueue)     // Queue Menu Show Tail
+EVT_MENU(ID_DequeueQueue, ProjectFrame::OnDequeueQueue)       // Queue Menu Dequeue
 // Events for the Deque
-EVT_MENU(ID_CreateDeque, ProjectFrame::OnCreateDeque)
-EVT_MENU(ID_DisplayAllDeque, ProjectFrame::OnDisplayAllDeque)
-EVT_MENU(ID_ShowHeadDeque, ProjectFrame::OnShowHeadDeque)
-EVT_MENU(ID_ShowTailDeque, ProjectFrame::OnShowTailDeque)
-EVT_MENU(ID_DequeueHeadDeque, ProjectFrame::OnDequeueHeadDeque)
-EVT_MENU(ID_DequeueTailDeque, ProjectFrame::OnDequeueTailDeque)
+EVT_MENU(ID_CreateDeque, ProjectFrame::OnCreateDeque)           // Deque Menu Create Deque
+EVT_MENU(ID_DisplayAllDeque, ProjectFrame::OnDisplayAllDeque)   // Deque Menu Display All
+EVT_MENU(ID_ShowHeadDeque, ProjectFrame::OnShowHeadDeque)       // Deque Menu Show Head
+EVT_MENU(ID_ShowTailDeque, ProjectFrame::OnShowTailDeque)       // Deque Menu Show Tail
+EVT_MENU(ID_DequeueHeadDeque, ProjectFrame::OnDequeueHeadDeque) // Deque Menu Dequeue Head
+EVT_MENU(ID_DequeueTailDeque, ProjectFrame::OnDequeueTailDeque) // Deque Menu Dequeue Tail
 // Events for the Priority Queue
-EVT_MENU(ID_CreatePriorityQueue, ProjectFrame::OnCreatePriorityQueue)
-EVT_MENU(ID_DisplayAllPriorityQueue, ProjectFrame::OnDisplayAllPriorityQueue)
-EVT_MENU(ID_ShowHeadPriorityQueue, ProjectFrame::OnShowHeadPriorityQueue)
-EVT_MENU(ID_ShowTailPriorityQueue, ProjectFrame::OnShowTailPriorityQueue)
-EVT_MENU(ID_DequeuePriorityQueue, ProjectFrame::OnDequeuePriorityQueue)
+EVT_MENU(ID_CreatePriorityQueue, ProjectFrame::OnCreatePriorityQueue)         // Priority Queue Menu Create Priority Queue
+EVT_MENU(ID_DisplayAllPriorityQueue, ProjectFrame::OnDisplayAllPriorityQueue) // Priority Queue Menu Display All
+EVT_MENU(ID_ShowHeadPriorityQueue, ProjectFrame::OnShowHeadPriorityQueue)     // Priority Queue Menu Show Head
+EVT_MENU(ID_ShowTailPriorityQueue, ProjectFrame::OnShowTailPriorityQueue)     // Priority Queue Menu Show Tail
+EVT_MENU(ID_DequeuePriorityQueue, ProjectFrame::OnDequeuePriorityQueue)       // Priority Queue Menu Dequeue
 // Events for the Stack
-EVT_MENU(ID_CreateStack, ProjectFrame::OnCreateStack)
-EVT_MENU(ID_DisplayAllStack, ProjectFrame::OnDisplayAllStack)
-EVT_MENU(ID_ShowHeadStack, ProjectFrame::OnShowHeadStack)
-EVT_MENU(ID_ShowTailStack, ProjectFrame::OnShowTailStack)
-EVT_MENU(ID_PopStack, ProjectFrame::OnPopStack)
+EVT_MENU(ID_CreateStack, ProjectFrame::OnCreateStack)         // Stack Menu Create Stack
+EVT_MENU(ID_DisplayAllStack, ProjectFrame::OnDisplayAllStack) // Stack Menu Display
+EVT_MENU(ID_ShowHeadStack, ProjectFrame::OnShowHeadStack)     // Stack Menu Show Head
+EVT_MENU(ID_ShowTailStack, ProjectFrame::OnShowTailStack)     // Stack Menu Show Tail
+EVT_MENU(ID_PopStack, ProjectFrame::OnPopStack)               // Stack Menu Pop
 // Events for the "Help" menu items
-EVT_MENU(wxID_ABOUT, ProjectFrame::OnAbout)
+EVT_MENU(wxID_ABOUT, ProjectFrame::OnAbout) // Help Menu About
 
 END_EVENT_TABLE()
 
-/************************************************************************************
-*************************************************************************************
-  Step 5.  Define the Application class function to initialize the application
-*************************************************************************************
-*************************************************************************************/
+// Define the Application class function to initialize the application
 bool ProjectApp::OnInit()
 {
   // Create the main application window
@@ -185,16 +175,10 @@ bool ProjectApp::OnInit()
   return TRUE;
 };
 
-/************************************************************************************
-*************************************************************************************
-  Step 6:   Define the Constructor functions for the Frame class
-*************************************************************************************
-*************************************************************************************/
+// Define the Constructor functions for the Frame class
 ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSize &size)
     : wxFrame((wxFrame *)NULL, -1, title, pos, size)
 {
-  // Set the frame icon - optional
-  // SetIcon(wxIcon(wxT("Icon.xpm")));
   // Create the main-menu items
   wxMenu *menuFile = new wxMenu;
   wxMenu *menuQueue = new wxMenu;
@@ -202,8 +186,10 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   wxMenu *menuPQueue = new wxMenu;
   wxMenu *menuStack = new wxMenu;
   wxMenu *menuHelp = new wxMenu;
+
   // Create a Main menu bar
   wxMenuBar *menuBar = new wxMenuBar;
+
   // Append the main menu items to the Menu Bar
   menuBar->Append(menuFile, wxT("File"));
   menuBar->Append(menuQueue, wxT("Queue"));
@@ -211,18 +197,21 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   menuBar->Append(menuPQueue, wxT("Priority Queue"));
   menuBar->Append(menuStack, wxT("Stack"));
   menuBar->Append(menuHelp, wxT("Help"));
+
   // Append the sub-menu items to the File Main Menu item
   menuFile->Append(ID_OpenFile, wxT("Open File..."), wxT("Open an Existing file"));
   menuFile->Append(ID_Display, wxT("Display File..."), wxT("Display contents of opened file"));
   menuFile->Append(ID_Save, wxT("Save"), wxT("Save opened file"));
   menuFile->Append(ID_SaveAs, wxT("Save As..."), wxT("Save display as a new file"));
   menuFile->Append(ID_Exit, wxT("Exit"), wxT("Close and EXIT Program"));
+
   // Append the sub-menu items to the Queue Main Menu item
   menuQueue->Append(ID_CreateQueue, wxT("Create Queue"), wxT("Create a Queue"));
   menuQueue->Append(ID_DisplayAllQueue, wxT("Display All"), wxT("Display contents of the Queue"));
   menuQueue->Append(ID_ShowHeadQueue, wxT("Show Head"), wxT("Show the first item of the Queue"));
   menuQueue->Append(ID_ShowTailQueue, wxT("Show Tail"), wxT("Show the last item of the Queue"));
   menuQueue->Append(ID_DequeueQueue, wxT("Dequeue"), wxT("Dequeue the first item from the Queue"));
+
   // Append the sub-menu items to the Deque Main Menu item
   menuDeque->Append(ID_CreateDeque, wxT("Create Deque"), wxT("Create a Deque"));
   menuDeque->Append(ID_DisplayAllDeque, wxT("Display All"), wxT("Display contents of the Deque"));
@@ -230,12 +219,14 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   menuDeque->Append(ID_ShowTailDeque, wxT("Show Tail"), wxT("Show the last item of the Deque"));
   menuDeque->Append(ID_DequeueHeadDeque, wxT("Dequeue Head"), wxT("Dequeue the first item from the Deque"));
   menuDeque->Append(ID_DequeueTailDeque, wxT("Dequeue Tail"), wxT("Dequeue the last item from the Deque"));
+
   // Append the sub-menu items to the Queue Main Menu item
   menuPQueue->Append(ID_CreatePriorityQueue, wxT("Create Priority Queue"), wxT("Create a Priority Queue"));
   menuPQueue->Append(ID_DisplayAllPriorityQueue, wxT("Display All"), wxT("Display contents of the Priority Queue"));
   menuPQueue->Append(ID_ShowHeadPriorityQueue, wxT("Show Head"), wxT("Show the first item of the Priority Queue"));
   menuPQueue->Append(ID_ShowTailPriorityQueue, wxT("Show Tail"), wxT("Show the last item of the Priority Queue"));
   menuPQueue->Append(ID_DequeuePriorityQueue, wxT("Dequeue"), wxT("Dequeue the first item from the Priority Queue"));
+
   // Append the sub-menu items to the Queue Main Menu item
   menuStack->Append(ID_CreateStack, wxT("Create Stack"), wxT("Create a Stack"));
   menuStack->Append(ID_DisplayAllStack, wxT("Display All"), wxT("Display contents of the Stack"));
@@ -243,6 +234,7 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   menuStack->Append(ID_ShowTailStack, wxT("Show Tail"), wxT("Show the last item of the Stack"));
   menuStack->Append(ID_PopStack, wxT("Pop"), wxT("Pop the first item from the Stack"));
 
+  // Append the sub-menu items to the Help Main Menu item
   menuHelp->Append(wxID_ABOUT, wxT("About"), wxT("Shows the details of the program"));
   // ... and now... attach this main menu bar to the frame
   SetMenuBar(menuBar);
@@ -286,14 +278,11 @@ ProjectFrame::ProjectFrame(const wxString &title, const wxPoint &pos, const wxSi
   Centre();
 };
 
-/************************************************************************************
-*************************************************************************************
-  Step 7:  Define member functions for the Frame class
-*************************************************************************************
-*************************************************************************************/
+// Define member functions for the Frame class
 //===================================================================================
 //=========== Definitions for the File Functions ====================================
 //===================================================================================
+
 void ProjectFrame::OnOpenFile(wxCommandEvent &event)
 {
   // Creates a "open file" dialog with 3 file types
@@ -371,6 +360,7 @@ void ProjectFrame::OnCreateQueue(wxCommandEvent &event)
     filenameTextBox->Clear();
     MainEditBox->Clear();
     filenameTextBox->AppendText(CurrentDocPath);
+    // Display the string in the MainEditBox
     wxString wxValue(value.c_str(), wxConvUTF8);
     MainEditBox->AppendText(wxValue); // Loads the contents of the Queue into the MainEditBox
   }
@@ -632,11 +622,10 @@ void ProjectFrame::OnAbout(wxCommandEvent &)
   // define the information for the user to read and to know what the program
   // consists of, how to use the program and libraries used
   string abouttext = "The author, Aquon Bovell, is a computer science and mathematics student with skills in Java, Python, C++, HTML, CSS, and JavaScript. They have completed programming projects including a website for a local business and a mobile app for a hypothetical non-profit organization. They are the lead programmer for a program designed to help users understand and appreciate different types of Linear Abstract Data Types (ADTs). The program allows users to load, display, and remove records from any Linear ADT and supports any file format for compatibility. The program uses C++, wxWidgets, and runs on Linux OpenSUSE 15.4. The program has features to add and remove data, view data, and save and load data, with a graphical user interface and a menu bar. The architecture of OpenSUSE 15.4 includes the latest Linux kernel, Xfce 4.14 desktop environment, and support for containerization and virtualization technologies.";
-  // string text = "Name: Aquon Bovell\nMajor: Computer Science and Mathematics\nLevel: II\nSkills: Java, Python, C++, HTML, CSS, JavaScript\nExperience: Completed several programming projects, including a website for a local business and a mobile app for a hypothetical non-profit organization\nRole in Project: Lead Programmer\nAvailability: Available for group meetings after 12pm on Thursdays and weekends\nDescription: This program is designed to help the user to understand and appreciate the various types of Linear Abstract Data Types (ADTs). It allows the user to load data from a file into any Linear ADT, display the contents of any Linear ADT and remove records from the Linear ABTs. The program also provides support for any file format for compatability across the board.\nTechnologies Used: C++ Language, wxWidgets(3.1.5) , Linux (OpenSuse 15.4) \nFeatures:\n\tAdd and/or remove data to/from the Linear ADTs\n\tView data from each Linear ADTs\n\tSave and/or load data for future use\nUser Interface: The program uses a graphical user interface created using wxWidgets. It features a menu bar with options to add, remove, and view from the individual Linear ADTs as well as save/load data to/from files.\nArchitecture: OpenSUSE 15.4 is based on the latest Linux kernel, version 5.3. It uses the Xfce 4.14 desktop environment by default, with other options available. The package management system is based on the RPM format and uses the zypper utility. OpenSUSE 15.4 also features support for containerization and virtualization technologies such as Docker and KVM.";
   // Convert the information to a wxString object to be displayed in the message box.
   wxString wxText(abouttext.c_str(), wxConvUTF8);
   // Display the information in a message box with the title "About".
   // The message box has an OK button and an information icon.
-  // The message box is displayed in the current window.
+  // The message box is displayed within the current window.
   wxMessageBox(wxText, wxT("About"), wxOK | wxICON_INFORMATION, this);
 };

@@ -1,33 +1,52 @@
+// ==================================================================================
+//
+//  Queue.h
+//  COMP2611 - Project #1 - 417002714
+//
+//  Created by Aquon Bovell on 02/15/2023
+//  © 2023 Aquon Bovell. All rights reserved
+//
+// ==================================================================================
 #ifndef QUEUE_H
 #define QUEUE_H
 #include "Node.h"
 #include <fstream>
-#include <string>
 
-using namespace std;
+using std::ifstream;
 
+// defines the blueprint of the Queue
 class Queue
 {
 private:
-  // define the attributes of the Queue
+  // the attributes of the Queue
   Node *head_;
 
 public:
   // Constructor function
-  Queue() : head_(NULL) {} // set the attribute to NULL
+
+    // default constructor - set attributes values to their default values
+  Queue() : head_(NULL) {}
+
   // Mutator functions
-  // This method takes a string as input and creates a Queue from the string. The string is expected to contain a series of asterisk-separated values, with each value representing the data for a node in the Queue.
+  
+  // This method takes a string which represents a file path and creates
+  // a Queue from that file. The file is expected to contain a series of
+  // asterisk-separated values, with each value representing the data 
+  // for a node in the Queue.
   const string createQueue(const string &);
-  // This method takes a filename as input and loads a Queue from a file. The file is expected to contain a series of comma-separated values, with each value representing the data for a node in the Queue.
-  const string loadFromFile(const string &);
-  // This method removes the head node from the Queue and returns its data.
+  // This method removes the node from the head of the Queue and
+  // returns its data.
   const string dequeue();
-  // This method creates a new node with the given data and inserts it at the head of the Queue.
+  // This method creates a new node with the data from the fields of the
+  // file opened and adds the node to the Queue
   void enqueue(const string &, int, const string &, const string &, const string &, int);
   // This method removes all nodes from the Queue.
   void purge() { head_ = NULL; };
+
   // Accessor functions
-  // This method returns a string representation of the Queue, with each node's data separated by a newline character
+
+  // This method returns a string representation of the Queue,
+  // with each node's data separated by a newline character
   const string displayAll() const;
   // This method returns the data of the head node without removing it.
   const string showHead() const;
@@ -41,34 +60,37 @@ void Queue::enqueue(const string &Month, int Year, const string &Artist, const s
 {
   // Create the new node with the data from the parameter list
   Node *freshNode = new Node(Month, Year, Artist, SongTitle, RecordLabel, WeeksAtNumberOne);
-  // Case 1: If the queue is empty, add the node to the head of the
-  // queue
+   // Case 1: If the Queue is empty, add the new Node to the head
+  // of the Queue
   if (head_ == NULL)
   {
     head_ = freshNode;
     return;
   }
-  // Case 2: If the queue is not empty, add the fresh Node to the
-  // end of the queue
+  // Case 2: If the Queue is not empty, add the new Node to the 
+  // end of the Queue
   Node *currentNode = head_;
   // iterate through the Queue to reach the end of the Queue
   for (; currentNode->get_next() != NULL; currentNode = currentNode->get_next())
     ;
-  // add the Node to the end of the Queue
+  // makee the old tail Node point to the new tail Node
   currentNode->set_next(freshNode);
   return;
 };
 
 const string Queue::dequeue()
 {
-  // Case 1: If the queue is empty
+  // Case 1: If the Queue is empty, return a message indicating
+  // that the Queue is empty
   if (head_ == NULL)
     return "The Queue is empty!!";
-  // Case 2: If the queue has more than one Node remaining,
-  // remove the head Node and move the next Node to the head
+  // Case 2: If the Queue has more than one Node remaining,
+  // remove the head Node and move the Node after the head
+  // to the head of the  Queue
   Node *ptrHead = head_;
+  // move the next Node to the head of the Queue
   head_ = head_->get_next();
-  // get the data from the head before the head is deleted
+  // grab the data from the head Node before it is deleted
   string str = ptrHead->get_data();
   delete ptrHead;
   return (str);
@@ -76,40 +98,46 @@ const string Queue::dequeue()
 
 const string Queue::displayAll() const
 {
-  // Case 1: If the queue is empty
+  // Case 1: If the Queue is empty, return a message indicating
+  // that the Queue is empty
   if (head_ == NULL)
     return "The Queue is empty!!";
-  // Case 2: If the queue is not empty, append all the data from
-  // each Node in the queue to a string
+  // Case 2: If the Queue is not empty, append all the data
+  // from each Node in the Queue to a string
+
+  // a container to hold all the data in the Queue
   string str = "";
+  // iterate through the Queue
   for (Node *ptr = head_; ptr != NULL; ptr = ptr->get_next())
   {
-    // append each data from each Node in the Queue to a single string
+    // append the data from each Node in the Queue to a single string
     str.append(ptr->get_data() + "\n");
   }
-  // return the data in the Queue to be displayed
   return (str);
 };
 
 const string  Queue::showHead() const
 {
-  // Case 1: If the queue is empty
+  // Case 1: If the Queue is empty, return a message indicating
+  // that the Queue is empty
   if (head_ == NULL)
     return ("The Queue is empty!!");
-  // Case 2: If the queue is not empty, return
-  // the data at the head of the queue
-    return (head_->get_data());
+  // Case 2: If the Queue is not empty, return
+  // the data at the head of the Queue
+  return (head_->get_data());
 };
 
 const string Queue::showTail() const
 {
-  // Case 1: If the queue is empty
+  // Case 1: If the Queue is empty, return a message indicating
+  // that the Queue is empty
   if (head_ == NULL)
-    return "The Queue is empty!!";
-  // Case 2: If the queue is not empty,
+    return "The Queue is empty!";
+  // Case 2: If the Queue is not empty,
   // iterate through the queue until we reach the end
-  // and return the data at the end of the queue
+  // and return the data at the tail of the Queue
   Node *ptr = head_;
+  // iterate through the Queue to reach the last Node in the Queue
   for (; ptr->get_next() != NULL; ptr = ptr->get_next())
     ;
   return (ptr->get_data());
@@ -119,15 +147,11 @@ const string Queue::createQueue(const string & filePath)
 {
   // Clear the Queue to prepare for loading new data
   purge();
-  // Load all the data from the file to the Queue
-  return (loadFromFile(filePath));
-};
 
-const string Queue::loadFromFile(const string & filePath)
-{
-// create a file to read from
+  // create a file to read from
   ifstream file(filePath);
-  if (!file.is_open()) // check if the file was opened successfully
+  // check if the file was opened successfully
+  if (!file.is_open()) 
     return ("The file can not be opened!!");
   // defines all the fields in the file
   string header;
